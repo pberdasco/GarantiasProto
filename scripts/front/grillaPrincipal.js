@@ -1,0 +1,104 @@
+//import {eventosAccionesCabecera, eventosAccionesDetalle, statusColorClass} from "./estadosYeventosGrilla.js"; 
+import { armaAccionesCabecera } from "./botonesAcciones/botonesAccionCabecera.js";
+import { armaAccionesDetalle } from "./botonesAcciones/botonesAccionDetalle.js";
+import {eventosAccionesCabecera} from "./handlersAcciones/handlersAccionCabecera.js";
+import {eventosAccionesDetalle} from "./handlersAcciones/handlersAccionDetalle.js";
+
+import { TIPOS } from "../back/producto.js";
+import * as gl from "../global/global.js";
+
+const INFO = `<i class="fa-solid fa-info"></i>`;
+const VAN = `<i class="fa-solid fa-truck-fast"></i>`;
+const TRASH = `<i class="fa-regular fa-trash-can"></i>`;
+let usuario;
+let usuarioInterno;
+
+export function loadTable(u){
+    usuario = u;
+    usuarioInterno = usuario.tipo === "E";
+    for (let i = 0; i < gl.casos.table.length; i++){       
+        loadLine(i);
+    }
+    if (usuarioInterno){
+        eventosAccionesCabecera();
+        eventosAccionesDetalle();
+    }
+}
+
+export function loadLine(i){
+    var tableBody = document.getElementById("main-body");
+    if  (gl.casos.table[i].cabecera.cliente === usuario.codigo || usuarioInterno){   
+        tableBody.appendChild(getLineaCabecera(i));
+        tableBody.appendChild(getTablaDetalle(i));
+    }
+
+}
+
+function getLineaCabecera(index){
+    const cabecera = gl.casos.table[index].cabecera;
+    const lineaCabecera = document.createElement("tr");
+    lineaCabecera.classList.add("cabecera");
+    lineaCabecera.setAttribute('id',`rwc-${index}`);
+    let datos = cabecera.datos;
+    let estado = cabecera.estado;
+    const retiro = (cabecera.retiro) ? VAN : TRASH;
+    const cliente = gl.clientes.getClienteByCodigo(cabecera.cliente);
+    const textoCliente  = `${cliente.codigo} - ${cliente.mail} - ${cliente.empresa || cliente.nombre + " " +cliente.apellido}`; 
+    lineaCabecera.innerHTML =  `<td> <button type="button" class="showDetail">${INFO}</button> </td>
+                                <td>${cabecera.caso}</td>
+                                <td>${cabecera.fechaAlta}</td> 
+                                <td>${gl.casos.table[index].productos.length}</td>
+                                <td class="${gl.statusColorClass("Datos", datos)}">${gl.ENUM_DATOS[datos].n}</td> 
+                                <td>${cabecera.fechaInicio}</td>     
+                                <td class="${gl.statusColorClass("Cabecera", estado)}">${gl.ENUM_ESTADO_CAB[estado].n}</td>
+                                <td>${retiro}</td>
+                                <td>${textoCliente}</td>`;
+    if (usuarioInterno){
+        lineaCabecera.innerHTML += `<td> <div class="actions">${armaAccionesCabecera(index, gl.casos.table[index])}</div></td>`
+    }
+    const  showDetail = lineaCabecera.querySelector(".showDetail");
+    showDetail.addEventListener("click", () => {
+                                            const detalle = lineaCabecera.nextElementSibling;
+                                            detalle.style.display = detalle.style.display === "none" ? "table-row" : "none";
+                                    });
+    return lineaCabecera;
+}
+
+function getTablaDetalle(index){
+    let tablaDetalle = document.createElement("tr")
+    tablaDetalle.classList.add("detalle")
+
+    let t = `<td colspan="10"> <table class="detail-table"> <thead> 
+                              <tr> <th data-column="1">Producto</th>  <th data-column="2">Color</th>  <th data-column="3">Factura</th>  <th data-column="4">Serie</th>  <th data-column="5">Estado</th>`;
+    if (usuarioInterno) t += `<th data-column="6">Acciones Producto</th>`;        
+    t += `</tr> </thead> <tbody>` + getLineasDetalle(index) + `</tbody> </table> </td>`;
+
+    tablaDetalle.innerHTML = t;
+    return tablaDetalle;
+}
+
+function getLineasDetalle(index){
+    let htmlLineas = "";
+    const detalle = gl.casos.table[index].productos;
+    for (let j = 0; j < detalle.length; j++){
+        const producto = gl.productos.getByCodigo(detalle[j].producto);
+        let textoProducto = `${TIPOS[detalle[j].tipo].nombre}: ${producto?.nombre} (${(producto?.serviceable ? "S" : "NS")})`;
+        let estado = detalle[j].estado;
+        htmlLineas += `<tr id="rwd-${index}-${j}"> <td data-column="1">${textoProducto}</td> 
+                        <td data-column="2">${detalle[j].color}</td> 
+                        <td data-column="3">${detalle[j].nroFactura}</td> 
+                        <td data-column="4">${detalle[j].serie}</td> 
+                        <td data-column="5" class="c-det-estado ${gl.statusColorClass("Detalle", estado)}">${gl.ENUM_ESTADO_DET[estado].n}</td>`;
+        if (usuarioInterno){
+            htmlLineas += `<td data-column="6"> <div class="actions">${armaAccionesDetalle(estado)} </div></td>`;
+        }
+        htmlLineas += `</tr>`;                        
+    }
+
+    return htmlLineas;
+}
+
+
+
+
+

@@ -1,0 +1,228 @@
+:root{
+	--tit-back-color: #f2f2f2;
+	--tit-front-color: rgb(90, 90, 218); 
+	--tit-grilla-back-color: #8a8db4;    
+	--modal-backdrop-color:  rgba(91, 91, 223, 0.2);
+	--division-grilla-cabecera-color:  #8a8db4;
+	--division-grilla-detalle-color:  #c7c5c5; 
+	--btn-back-color: rgb(2, 2, 199);
+	--btn-front-color: white;
+	--btn-hover-color: rgb(93, 93, 245);
+}
+/* Estilos generales */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+h1, h2{
+    color: var(--tit-front-color);
+    text-align: center;
+}
+
+h2{
+	margin-top: 0;
+	padding: 10px 0  10px;
+}
+.btnGeneral {
+	background-color: var(--btn-back-color);
+	color: var(--btn-front-color);
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;   
+    min-width: 120px;
+	cursor: pointer;
+}
+
+.btngeneral:hover {
+	background-color: var(--btn-hover-color);
+}
+
+/* Estilos del encabezado */
+
+header {
+	background-color: var(--tit-back-color);
+	padding: 2px 65px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logo {
+	font-weight: bold;
+	font-size: 30px;
+}
+
+
+/* Estilos de la tabla */
+.grilla{
+	width: 90%;
+    margin-top: 20px;
+    margin-left: 5%;
+}
+
+.main-table {
+    width: 100%;
+	border-collapse: collapse;
+}
+
+.titulos-cabecera {
+    background-color: var(--tit-grilla-back-color);
+	cursor: pointer;
+}
+
+
+tbody tr.detalle {
+	display: none;
+}
+
+
+td, th {
+	padding: 6px 15px;
+	border: 1px solid var(--division-grilla-cabecera-color);
+	text-align: left;
+}
+
+.main-table [data-column="1"]{width: 4%;}
+.main-table [data-column="2"]{width: 5%;}
+.main-table [data-column="3"]{width: 9%;}
+.main-table [data-column="4"]{width: 5%;}
+.main-table [data-column="5"]{width: 6%;}
+.main-table [data-column="6"]{width: 9%;}
+.main-table [data-column="7"]{width: 12%;}
+.main-table [data-column="8"]{width: 3%;}
+.main-table [data-column="9"]{width: 30%;}
+.main-table [data-column="10"]{width: 17%;}
+
+/* Estilos de la tabla de detalle */
+
+.detail-table {
+	width: 100%;
+	table-layout: fixed;
+    margin: 0px;
+	border-collapse: collapse;
+}
+
+.detail-table th, .detail-table td {
+	padding: 3px 3px 3px 10px;
+	border: 1px solid var(--division-grilla-detalle-color);
+}
+
+.detail-table th {
+	background-color: #f2f2f2;
+}
+
+.detail-table [data-column="1"]{width: 35%;}
+.detail-table [data-column="2"]{width: 10%;}
+.detail-table [data-column="3"]{width: 15%;}
+.detail-table [data-column="4"]{width: 10%;}
+.detail-table [data-column="5"]{width: 10%;}
+.detail-table [data-column="6"]{width: 20%;}
+
+
+.actions{
+	display: flex;
+	align-items: center;
+	justify-content:center;
+}
+
+.colorRechazado{
+	background-color: red;
+}
+.colorRevision{
+	background-color: yellow;
+}
+.colorEnProceso{
+	background-color: lightgreen;
+}
+.colorAprobado{
+	background-color: green;
+}
+.colorEnCliente{
+	background-color: orange;
+}
+
+.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn, .showDetail{
+	background-color: var(--tit-grilla-back-color);
+	color: white;
+	border-radius: 25%;
+	margin-right: 5px;
+}
+
+
+
+/*  Alta de un nuevo caso */
+
+
+.alta{
+    width: 90%;
+    margin-top: 30px;
+    margin-left: 5%;
+    border: 1px solid var(--tit-grilla-back-color);
+    padding: 0 20px 10px;
+}
+
+.altaOculta{
+    display: none;
+}
+
+.altaTitulo{
+	background-color:  var(--tit-back-color);
+}
+
+.cabecera-nuevoProducto{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+
+.labelIngreso{
+	font-weight: bold;
+}
+
+.inputIngreso{
+	border-color: var(--tit-grilla-back-color);
+}
+
+#grilla-alta-productos {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.celda-nuevoProducto{
+	background-color: var(--division-grilla-color) ;
+	border-color: var(--tit-grilla-back-color);
+}
+
+.inputGrilla{
+	width: 100%;
+	border-color: var(--tit-grilla-back-color);
+}
+
+.bloqueBotones{
+    margin-top: 15px;
+    text-align: right;
+}
+
+.mensajes{
+	box-shadow: 5px 10px #888888;
+    border-radius: 8px;
+    border: none;
+}
+.mensajes::backdrop{
+	background-color: rgba(91, 91, 223, 0.1);
+	backdrop-filter: blur(1px);
+}
+
+#mensajeOk{
+	margin-top: 10px;
+	align-self: center;
+}

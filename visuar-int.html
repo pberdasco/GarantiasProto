@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reclamos Garantía - Visuar SA</title>
+	<link rel="stylesheet" href="./styles/estilos.css">
+	<script src="https://kit.fontawesome.com/8c427e0695.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<header>
+		<div class="logo"><img src="./styles/LogoVisuar.png" alt="Visuar SA"></div>
+		<h1>Reclamos Garantía</h1>
+		<button class="btnGeneral" id="loginBtn">Login</button>
+	</header>
+	
+	<main>
+		<div>
+			<dialog class="mensajes">
+				<h2 id="tituloMensaje"></h2>
+				<div id="textoMensaje"></div>
+				<button type="button" id="mensajeOk"  class="btnGeneral">Ok</button>
+			</dialog>
+		</div>
+		<div class="grilla">
+			<table class="main-table">
+				<thead>
+					<tr class="titulos-cabecera">
+						<th data-column="1">Detalle</th>
+						<th data-column="2">Caso</th>
+						<th data-column="3">Alta</th>
+						<th data-column="4">Items</th>
+						<th data-column="5">Datos</th>
+						<th data-column="6">Inicio</th>
+						<th data-column="7">Estado</th>
+						<th data-column="8">Ret</th>
+						<th data-column="9">Cliente</th>
+						<th data-column="10">Acciones Caso</th>
+					</tr>
+				</thead>
+				<tbody id="main-body">
+					<!-- Aqui el script carga tanto las filas de las cabeceras como los titulos y filas de los detalles -->
+				</tbody>
+			</table>
+		</div>
+		<div id="alta" class="altaOculta alta">
+			<div class="altaTitulo">
+				<h2>Detalles del caso</h2>
+			</div>
+			<div>
+
+			</div>
+		</div>
+	</main>
+
+	<script src="./scripts/front/visuar.js" type="module"></script>
+</body>
+</html>
