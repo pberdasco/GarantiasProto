@@ -21,7 +21,7 @@ export function loadTable(u){
     }
     if (usuarioInterno){
         eventosAccionesCabecera();
-        eventosAccionesDetalle();
+        //eventosAccionesDetalle();
     }
 }
 
@@ -64,39 +64,68 @@ function getLineaCabecera(index){
     return lineaCabecera;
 }
 
-function getTablaDetalle(index){
-    let tablaDetalle = document.createElement("tr")
-    tablaDetalle.classList.add("detalle")
-
-    let t = `<td colspan="10"> <table class="detail-table"> <thead> 
-                              <tr> <th data-column="1">Producto</th>  <th data-column="2">Color</th>  <th data-column="3">Factura</th>  <th data-column="4">Serie</th>  <th data-column="5">Estado</th>`;
-    if (usuarioInterno) t += `<th data-column="6">Acciones Producto</th>`;        
-    t += `</tr> </thead> <tbody>` + getLineasDetalle(index) + `</tbody> </table> </td>`;
-
-    tablaDetalle.innerHTML = t;
+function getTablaDetalle(index) {
+    const tablaDetalle = document.createElement("tr");
+    tablaDetalle.classList.add("detalle");
+  
+    const table = document.createElement("table");
+    table.classList.add("detail-table");
+  
+    const thead = document.createElement("thead");
+    thead.innerHTML = ` <tr>
+                        <th data-column="1">Producto</th>
+                        <th data-column="2">Color</th>
+                        <th data-column="3">Factura</th>
+                        <th data-column="4">Serie</th>
+                        <th data-column="5">Estado</th>
+                        ${(usuarioInterno)? `<th data-column="6">Acciones Producto</th>`: ``  }
+                        </tr>`;
+    table.appendChild(thead);
+  
+    const tbody = document.createElement("tbody");
+    const rows = getLineasDetalle(index);
+    rows.forEach((row) => tbody.appendChild(row));
+    table.appendChild(tbody);
+  
+    const td = document.createElement("td");
+    td.setAttribute("colspan", "10");
+    td.appendChild(table);
+  
+    tablaDetalle.appendChild(td);
+  
     return tablaDetalle;
-}
+  }
+  
 
 function getLineasDetalle(index){
-    let htmlLineas = "";
     const detalle = gl.casos.table[index].productos;
+    const tableRows = [];
+  
     for (let j = 0; j < detalle.length; j++){
-        const producto = gl.productos.getByCodigo(detalle[j].producto);
-        let textoProducto = `${TIPOS[detalle[j].tipo].nombre}: ${producto?.nombre} (${(producto?.serviceable ? "S" : "NS")})`;
-        let estado = detalle[j].estado;
-        htmlLineas += `<tr id="rwd-${index}-${j}"> <td data-column="1">${textoProducto}</td> 
-                        <td data-column="2">${detalle[j].color}</td> 
-                        <td data-column="3">${detalle[j].nroFactura}</td> 
-                        <td data-column="4">${detalle[j].serie}</td> 
-                        <td data-column="5" class="c-det-estado ${gl.statusColorClass("Detalle", estado)}">${gl.ENUM_ESTADO_DET[estado].n}</td>`;
-        if (usuarioInterno){
-            htmlLineas += `<td data-column="6"> <div class="actions">${armaAccionesDetalle(estado)} </div></td>`;
-        }
-        htmlLineas += `</tr>`;                        
+      const producto = gl.productos.getByCodigo(detalle[j].producto);
+      let textoProducto = `${TIPOS[detalle[j].tipo].nombre}: ${producto?.nombre} (${(producto?.serviceable ? "S" : "NS")})`;
+      let estado = detalle[j].estado;
+  
+      const tr = document.createElement("tr");
+      tr.setAttribute("id", `rwd-${index}-${j}`);
+  
+      let htmlColumns = `<td data-column="1">${textoProducto}</td>`;
+      htmlColumns += `<td data-column="2">${detalle[j].color}</td>`;
+      htmlColumns += `<td data-column="3">${detalle[j].nroFactura}</td>`;
+      htmlColumns += `<td data-column="4">${detalle[j].serie}</td>`;
+      htmlColumns += `<td data-column="5" class="c-det-estado ${gl.statusColorClass("Detalle", estado)}">${gl.ENUM_ESTADO_DET[estado].n}</td>`;
+      if (usuarioInterno){
+        htmlColumns += `<td data-column="6"><div class="actions">${armaAccionesDetalle(estado)}</div></td>`;
+      }
+  
+      tr.innerHTML = htmlColumns;
+      eventosAccionesDetalle(tr);
+      tableRows.push(tr);
     }
+  
+    return tableRows;
+  }
 
-    return htmlLineas;
-}
 
 
 

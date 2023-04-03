@@ -1,10 +1,11 @@
 import {displayMessage} from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
+import {armaAccionesDetalle} from "../botonesAcciones/botonesAccionDetalle.js";
 
 
-export function eventosAccionesDetalle(){
-    const buttons = document.querySelectorAll('.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn');
+export function eventosAccionesDetalle(tr){
+    const buttons = tr.querySelectorAll('.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
             procesaAccionDetalle(button); 
@@ -12,12 +13,11 @@ export function eventosAccionesDetalle(){
     });
 }
 
+
 function procesaAccionDetalle(b){
     const tr = b.closest("tr"); // desde la posicion del boton, tomo la fila que lo contiene
     const  [,filaCaso,filaProducto]  = tr.id.split("-");
-    // const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
     const campos = mapTrToCampos(tr);
-    //const estadoProducto = tr.querySelector(".c-det-estado");
 
     switch (b.className){
         case "verBtn": 
@@ -25,11 +25,14 @@ function procesaAccionDetalle(b){
             displayMessage(html, `Boton ${Icon.LUPA}`);
             break;
         case "rechazarBtn":
-            changeEstado(tr, 1);
-            const newActions="";
-            changeActions(newActions);
-            // TODO: Cambiar los botones (borrando directamente el TD y agregando uno nuevo. Esto se lleva los liteners? o alcanza con  borrar el boton en cuestion)
-            // TODO: setear los eventListeners
+            const newEstado = 1;
+            changeEstado(tr, newEstado);
+            changeActions(tr, newEstado);
+
+            const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
+            const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
+            displayMessage(`Se rechazó el producto ${itemCaso.producto}<br>
+                            Codigo de estado modificado (${gl.ENUM_ESTADO_DET[newHistoria.valorViejo].n} => ${gl.ENUM_ESTADO_DET[newHistoria.valorNuevo].n})`, `Rechazo`);
             break;
         case "retirarBtn":
             displayMessage(`Estaremos enviando a OCA para retirar el producto ${filaProducto}  del caso ${filaCaso}`, `Boton ${Icon.CAMION}`);
@@ -59,13 +62,20 @@ function  changeEstado(tr, nuevoEstado){
     estadoProducto.textContent = gl.ENUM_ESTADO_DET[nuevoEstado].n;
     estadoProducto.classList.remove(gl.statusColorClass("Detalle", newHistoria.valorViejo));
     estadoProducto.classList.add(gl.statusColorClass("Detalle", nuevoEstado));
-    displayMessage(`Se rechazó el producto ${itemCaso.producto}<br>
-    Codigo de estado modificado (${gl.ENUM_ESTADO_DET[newHistoria.valorViejo].n} => ${gl.ENUM_ESTADO_DET[newHistoria.valorNuevo].n})`, `CambioEstado`);
 }
 
-function changeActions(newActions){
-    return "";
-}
+function changeActions(tr, newEstado){
+    const newActions = document.createElement("div");
+    newActions.className = "actions";
+    newActions.innerHTML = armaAccionesDetalle(newEstado);
+
+    const divAcciones = tr.querySelector(".actions");
+    const tdAcciones = divAcciones.closest("td");
+    divAcciones.remove();
+    tdAcciones.appendChild(newActions);
+
+    eventosAccionesDetalle(tr);
+}    
 
 function mapTrToCampos(tr){
     const campos = [];
