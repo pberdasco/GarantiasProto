@@ -20,7 +20,7 @@ export function loadTable(u){
         loadLine(i);
     }
     if (usuarioInterno){
-        eventosAccionesCabecera();
+        //eventosAccionesCabecera();
         //eventosAccionesDetalle();
     }
 }
@@ -61,6 +61,8 @@ function getLineaCabecera(index){
                                             const detalle = lineaCabecera.nextElementSibling;
                                             detalle.style.display = detalle.style.display === "none" ? "table-row" : "none";
                                     });
+    
+    eventosAccionesCabecera(lineaCabecera);
     return lineaCabecera;
 }
 
