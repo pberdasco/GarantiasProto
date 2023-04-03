@@ -14,20 +14,22 @@ export function eventosAccionesDetalle(tr){
 }
 
 
-function procesaAccionDetalle(b){
-    const tr = b.closest("tr"); // desde la posicion del boton, tomo la fila que lo contiene
+function procesaAccionDetalle(button){
+    const tr = button.closest("tr"); // desde la posicion del boton, tomo la fila que lo contiene
     const  [,filaCaso,filaProducto]  = tr.id.split("-");
-    const campos = mapTrToCampos(tr);
+    const cabecera = gl.casos.table[filaCaso].cabecera;
+    
 
-    switch (b.className){
+    switch (button.className){
         case "verBtn": 
+            const campos = mapTrToCampos(tr);
             let html = `<div>Ver el caso ${filaCaso} para el producto número ${filaProducto}<br></div>` +  campos.html;
             displayMessage(html, `Boton ${Icon.LUPA}`);
             break;
         case "rechazarBtn":
             const newEstado = 1;
             changeEstado(tr, newEstado);
-            changeActions(tr, newEstado);
+            changeActions(tr, newEstado, cabecera);
 
             const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
             const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
@@ -57,17 +59,20 @@ function  changeEstado(tr, nuevoEstado){
     const  [,filaCaso,filaProducto]  = tr.id.split("-");
     const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
     const estadoProducto = tr.querySelector(".c-det-estado");
+
+    //const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
+    //estadoProducto.classList.remove(gl.statusColorClass("Detalle", newHistoria.valorViejo));
+    estadoProducto.classList.remove(gl.statusColorClass("Detalle", itemCaso.estado));
     itemCaso.changeCampos({estado: nuevoEstado});
-    const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
+    
     estadoProducto.textContent = gl.ENUM_ESTADO_DET[nuevoEstado].n;
-    estadoProducto.classList.remove(gl.statusColorClass("Detalle", newHistoria.valorViejo));
     estadoProducto.classList.add(gl.statusColorClass("Detalle", nuevoEstado));
 }
 
-function changeActions(tr, newEstado){
+function changeActions(tr, newEstado, cabecera){
     const newActions = document.createElement("div");
     newActions.className = "actions";
-    newActions.innerHTML = armaAccionesDetalle(newEstado);
+    newActions.innerHTML = armaAccionesDetalle(newEstado, cabecera);
 
     const divAcciones = tr.querySelector(".actions");
     const tdAcciones = divAcciones.closest("td");
