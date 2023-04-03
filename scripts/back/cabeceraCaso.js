@@ -39,12 +39,12 @@ export class cabeceraCaso{
             this.addHito({caso: this.caso, usuario: "nn", fecha: todayFormated(), campo: "fechaFin", valorViejo: this.fechaFin, valorNuevo: campos.fechaFin})
             this.fechaFin = campos.fechaFin; 
         } 
-        if (campos.datos){
+        if (typeof campos.datos === 'number'){
             this.addHito({caso: this.caso, usuario: "nn", fecha: todayFormated(), campo: "datos", valorViejo: this.datos, valorNuevo: campos.datos});
-            this.datos = campos.dato;
-            if (this.datos === 0) this.fechaInicio = todayFormated(); // poner datos=OK es lo que setea la fecha de inicio 
+            this.datos = campos.datos;
+            if (this.datos === 0) this.fechaInicio = todayFormated(); // poner datos=OK es lo que setea la fecha de inicio
         } 
-        if (campos.estado){
+        if (typeof campos.estado === 'number'){
             this.addHito({caso: this.caso, usuario: "nn", fecha: todayFormated(), campo: "estado", valorViejo: this.estado, valorNuevo: campos.estado});
             this.estado = campos.estado;
         }  

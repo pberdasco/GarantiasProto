@@ -60,8 +60,6 @@ function  changeEstado(tr, nuevoEstado){
     const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
     const estadoProducto = tr.querySelector(".c-det-estado");
 
-    //const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
-    //estadoProducto.classList.remove(gl.statusColorClass("Detalle", newHistoria.valorViejo));
     estadoProducto.classList.remove(gl.statusColorClass("Detalle", itemCaso.estado));
     itemCaso.changeCampos({estado: nuevoEstado});
     

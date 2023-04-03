@@ -148,13 +148,20 @@ td, th {
 	background-color: orange;
 }
 
-.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn, .showDetail{
+.dtsOkBtn, .dtsFaltanteBtn, .tglRetiroBtn, .showDetail{
 	background-color: var(--tit-grilla-back-color);
 	color: white;
 	border-radius: 25%;
 	margin-right: 5px;
 }
 
+.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn{
+	/* background-color: var(--tit-grilla-back-color);
+	color: white; */
+	border-style: none; 
+	border-radius: 25%;
+	margin-right: 5px; 
+}
 
 
 /*  Alta de un nuevo caso */
