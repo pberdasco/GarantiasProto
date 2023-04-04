@@ -21,22 +21,20 @@ function procesaAccionCabecera(button){
         case "verBtn": 
             displayMessage(`<div>Ver el caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.LUPA}`);
             break;
-        case "dtsOkBtn":
-            const newDatos = 0;
-            changeDatos(tr, newDatos);
-            const fInicio = tr.querySelector(".c-cab-fInicio");
-            fInicio.textContent = cabecera.fechaInicio;
-console.log("f.inicio: ", cabecera.fechaInicio, fInicio);
-            // TODO: ver que poner los datos en OK setea la fecha de inicio, habria que desplegarla tambien.
+        case "dtsOkBtn": {
+            changeDatos(tr, 0);
             changeActions(tr);
-            displayMessage(`<div>Cambiar a Datos OK el caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.DATA_OK}`);
-            break;
-        case "dtsFaltanteBtn":
-            displayMessage(`<div>Cambiar a Datos Faltantes el caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.DATA_FALTA}`);
-            break;
-        case "tglRetiroBtn":
-            displayMessage(`<div>Toogle entre retirar y destruir en el caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.VAN}/${Icon.TRASH}`);
-            break;
+            const fInicio = tr.querySelector(".c-cab-fInicio"); // muestra la fecha de inicio que es cambiada al poner estado 0
+            fInicio.textContent = cabecera.fechaInicio;
+            break;}
+        case "dtsFaltanteBtn": {
+            changeDatos(tr, 2);
+            changeActions(tr);
+            break;}
+        case "tglRetiroBtn":{
+            changeRetiro(tr);
+            changeActions(tr);
+            break;}
         default:
             break;
     }
@@ -73,7 +71,7 @@ function  changeRetiro(tr){
 
     const nuevoEstado = !cabecera.retiro;
     cabecera.changeCampos({retiro: nuevoEstado});  
-    elemento.textContent = (nuevoEstado) ? Icon.VAN : Icon.TRASH;
+    elemento.innerHTML = (nuevoEstado) ? Icon.VAN : Icon.TRASH; 
 }
 
 function changeActions(tr){

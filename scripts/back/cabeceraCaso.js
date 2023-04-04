@@ -34,7 +34,7 @@ export class cabeceraCaso{
     }
 
     changeCampos(campos){
-        // campos = {fechaFin: , datos:, estado:}
+        // campos = {fechaFin: , datos:, estado:, retiro:}
         if (campos.fechaFin){
             this.addHito({caso: this.caso, usuario: "nn", fecha: todayFormated(), campo: "fechaFin", valorViejo: this.fechaFin, valorNuevo: campos.fechaFin})
             this.fechaFin = campos.fechaFin; 
@@ -47,6 +47,10 @@ export class cabeceraCaso{
         if (typeof campos.estado === 'number'){
             this.addHito({caso: this.caso, usuario: "nn", fecha: todayFormated(), campo: "estado", valorViejo: this.estado, valorNuevo: campos.estado});
             this.estado = campos.estado;
+        }  
+        if (typeof campos.retiro === 'boolean'){
+            this.addHito({caso: this.caso, usuario: "nn", fecha: todayFormated(), campo: "retiro", valorViejo: this.estado, valorNuevo: campos.estado});
+            this.retiro = campos.retiro;
         }  
     }
 

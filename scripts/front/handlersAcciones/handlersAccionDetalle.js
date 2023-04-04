@@ -60,11 +60,10 @@ function  changeEstado(tr, nuevoEstado){
     const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
     const estadoProducto = tr.querySelector(".c-det-estado");
 
-    estadoProducto.classList.remove(gl.statusColorClass("Detalle", itemCaso.estado));
+    estadoProducto.classList.replace(   gl.statusColorClass("Detalle", itemCaso.estado),
+                                        gl.statusColorClass("Detalle", nuevoEstado) );
     itemCaso.changeCampos({estado: nuevoEstado});
-    
     estadoProducto.textContent = gl.ENUM_ESTADO_DET[nuevoEstado].n;
-    estadoProducto.classList.add(gl.statusColorClass("Detalle", nuevoEstado));
 }
 
 function changeActions(tr, newEstado, cabecera){
