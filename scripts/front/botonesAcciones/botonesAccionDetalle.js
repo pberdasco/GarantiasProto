@@ -1,8 +1,11 @@
 import * as Icon from "../../global/icons.js"
 
-export function armaAccionesDetalle(estado, cabecera){
+export function armaAccionesDetalle(indexProducto, caso){
 
-    if (cabecera.datos != 0) return `<button type="button" class="verBtn">${Icon.LUPA}</button>`; // hasta que no estan los datos OK no se puede hacer nada con los productos
+    const estado = caso.productos[indexProducto].estado;
+
+
+    if (caso.cabecera.datos != 0) return `<button type="button" class="verBtn">${Icon.LUPA}</button>`; // hasta que no estan los datos OK no se puede hacer nada con los productos
     switch (estado){      
         case 0:   // No procesado
             return `<button type="button" class="verBtn">${Icon.LUPA}</button>

@@ -1,8 +1,7 @@
 import {displayMessage} from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
-import {armaAccionesDetalle} from "../botonesAcciones/botonesAccionDetalle.js";
-
+import {changeDetEstado, changeDetActions, setAccionesCabecera} from "./changeValuesAndActions.js";
 
 export function eventosAccionesDetalle(tr){
     const buttons = tr.querySelectorAll('.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn');
@@ -13,11 +12,10 @@ export function eventosAccionesDetalle(tr){
     });
 }
 
-
 function procesaAccionDetalle(button){
     const tr = button.closest("tr"); // desde la posicion del boton, tomo la fila que lo contiene
     const  [,filaCaso,filaProducto]  = tr.id.split("-");
-    const cabecera = gl.casos.table[filaCaso].cabecera;
+    const caso = gl.casos.table[filaCaso];
     
 
     switch (button.className){
@@ -28,8 +26,9 @@ function procesaAccionDetalle(button){
             break;
         case "rechazarBtn":
             const newEstado = 1;
-            changeEstado(tr, newEstado);
-            changeActions(tr, newEstado, cabecera);
+            changeDetEstado(tr, newEstado);
+            changeDetActions(tr, caso);
+            setAccionesCabecera(tr, filaCaso);
 
             const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
             const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
@@ -54,30 +53,6 @@ function procesaAccionDetalle(button){
     }
 
 }
-
-function  changeEstado(tr, nuevoEstado){
-    const  [,filaCaso,filaProducto]  = tr.id.split("-");
-    const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
-    const estadoProducto = tr.querySelector(".c-det-estado");
-
-    estadoProducto.classList.replace(   gl.statusColorClass("Detalle", itemCaso.estado),
-                                        gl.statusColorClass("Detalle", nuevoEstado) );
-    itemCaso.changeCampos({estado: nuevoEstado});
-    estadoProducto.textContent = gl.ENUM_ESTADO_DET[nuevoEstado].n;
-}
-
-function changeActions(tr, newEstado, cabecera){
-    const newActions = document.createElement("div");
-    newActions.className = "actions";
-    newActions.innerHTML = armaAccionesDetalle(newEstado, cabecera);
-
-    const divAcciones = tr.querySelector(".actions");
-    const tdAcciones = divAcciones.closest("td");
-    divAcciones.remove();
-    tdAcciones.appendChild(newActions);
-
-    eventosAccionesDetalle(tr);
-}    
 
 function mapTrToCampos(tr){
     const campos = [];

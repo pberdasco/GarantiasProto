@@ -1,7 +1,7 @@
 import {displayMessage} from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
-import {armaAccionesCabecera} from "../botonesAcciones/botonesAccionCabecera.js";
+import {changeCabEstado, changeDatos, changeRetiro, changeCabActions, setAccionesDetalle} from "./changeValuesAndActions.js";
 
 export function eventosAccionesCabecera(tr){
     const buttons = tr.querySelectorAll('.verBtn, .dtsOkBtn, .dtsFaltanteBtn, .tglRetiroBtn');
@@ -23,67 +23,27 @@ function procesaAccionCabecera(button){
             break;
         case "dtsOkBtn": {
             changeDatos(tr, 0);
-            changeActions(tr);
+            changeCabActions(tr);
+            setAccionesDetalle(tr, filaCaso); // si al cambiar un estado en la cabecera, tambien cambio acciones en sus detalles
             const fInicio = tr.querySelector(".c-cab-fInicio"); // muestra la fecha de inicio que es cambiada al poner estado 0
             fInicio.textContent = cabecera.fechaInicio;
+            //TODO: al pasar a OK voy a tener efectos sobre las acciones posibles de los detalles
+            //      implementar el modelo para gestionar esto asi como cambios en los detalles que modifiquen la cabecera
+
             break;}
         case "dtsFaltanteBtn": {
             changeDatos(tr, 2);
-            changeActions(tr);
+            changeCabActions(tr);
+            setAccionesDetalle(tr, filaCaso); // si al cambiar un estado en la cabecera, tambien cambio acciones en sus detalles
             break;}
         case "tglRetiroBtn":{
             changeRetiro(tr);
-            changeActions(tr);
+            changeCabActions(tr);
+            setAccionesDetalle(tr, filaCaso); // si al cambiar un estado en la cabecera, tambien cambio acciones en sus detalles
             break;}
         default:
             break;
     }
 };
 
-function changeCabeceraCampo(tr, campo, nuevoValor, enumObj, color) {
-        const [, filaCaso] = tr.id.split("-");
-        const cabecera = gl.casos.table[filaCaso].cabecera;
-        const elemento = tr.querySelector(`.c-cab-${campo}`);
-    
-        const valorAnterior = cabecera[campo];
-        cabecera.changeCampos({ [campo]: nuevoValor });
-        elemento.classList.replace( gl.statusColorClass(color, valorAnterior),
-                                    gl.statusColorClass(color, nuevoValor));
-        elemento.textContent = enumObj[nuevoValor].n;    
-
- //TODO: Ojo con cambios de cabecera que generan cambios en todos sus items 
- //     (ej si paso de retiro a destruccion los items deben cambiar tambien.
- //     Por otro lado si ya setee algun articulo en retiro o destruccion no deberia poder cambiar la cabecera)       
-}
-
-function changeEstado(tr, nuevoEstado) {
-    changeCabeceraCampo(tr, "estado", nuevoEstado, gl.ENUM_ESTADO_CAB, "Cabecera");
-}
-  
-function changeDatos(tr, nuevoDato) {
-    changeCabeceraCampo(tr, "datos", nuevoDato, gl.ENUM_DATOS, "Datos");
-}
-   
-function  changeRetiro(tr){
-    const  [,filaCaso]  = tr.id.split("-");
-    const cabecera = gl.casos.table[filaCaso].cabecera;
-    const elemento = tr.querySelector(".c-cab-retiro");
-
-    const nuevoEstado = !cabecera.retiro;
-    cabecera.changeCampos({retiro: nuevoEstado});  
-    elemento.innerHTML = (nuevoEstado) ? Icon.VAN : Icon.TRASH; 
-}
-
-function changeActions(tr){
-    const  [,filaCaso]  = tr.id.split("-");
-    const newActions = document.createElement("div");
-    newActions.className = "actions";
-    newActions.innerHTML = armaAccionesCabecera(filaCaso, gl.casos.table[filaCaso]);
-    const divAcciones = tr.querySelector(".actions");
-    const tdAcciones = divAcciones.closest("td");
-    divAcciones.remove();
-    tdAcciones.appendChild(newActions);
-
-    eventosAccionesCabecera(tr);
-}  
 

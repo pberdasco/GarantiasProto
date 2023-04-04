@@ -2,6 +2,9 @@ import * as Icon from "../../global/icons.js";
 
 export function armaAccionesCabecera(index, caso){
 
+    if (caso.productos.some((x) => x.estado === 0)) console.log(`Caso ${index} tiene al menos un item en estado 0`);
+    else console.log(`Caso ${index} tiene todos los items procesados`);
+
     let resultado = correspondsToogleretiro(caso);
     resultado += accionesDesdeDatosRevision(caso);
     return resultado;

@@ -113,7 +113,7 @@ function getLineasDetalle(index){
         tr.innerHTML += `<td data-column="4">${detalle[j].serie}</td>`;
         tr.innerHTML += `<td data-column="5" class="c-det-estado ${gl.statusColorClass("Detalle", estado)}">${gl.ENUM_ESTADO_DET[estado].n}</td>`;
         if (usuarioInterno){
-            tr.innerHTML += `<td data-column="6"><div class="actions">${armaAccionesDetalle(estado, gl.casos.table[index].cabecera)}</div></td>`;
+            tr.innerHTML += `<td data-column="6"><div class="actions">${armaAccionesDetalle(j, gl.casos.table[index])}</div></td>`;
             eventosAccionesDetalle(tr);
         }
 
