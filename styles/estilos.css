@@ -148,14 +148,16 @@ td, th {
 	background-color: orange;
 }
 
-.dtsOkBtn, .dtsFaltanteBtn, .tglRetiroBtn, .showDetail{
+/* Cabecera */
+.verCabBtn, .dtsOkBtn, .dtsFaltanteBtn, .tglRetiroBtn, .startBtn, .avisoRetiroBtn, .avisoSolicDestrBtn, .recibidoBtn, .destruidoBtn, .showDetail{
 	background-color: var(--tit-grilla-back-color);
 	color: white;
 	border-radius: 25%;
 	margin-right: 5px;
 }
 
-.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn{
+/* Detalle */
+.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn, .accesorioBtn, .destruirBtn{
 	/* background-color: var(--tit-grilla-back-color);
 	color: white; */
 	border-style: none; 
@@ -223,10 +225,17 @@ td, th {
 	box-shadow: 5px 10px #888888;
     border-radius: 8px;
     border: none;
+	max-width: 80%;
 }
 .mensajes::backdrop{
 	background-color: rgba(91, 91, 223, 0.1);
 	backdrop-filter: blur(1px);
+}
+
+.messageBodyFlex{
+	max-width: 80%;
+	display: flex;
+	justify-content: space-between;
 }
 
 #mensajeOk{

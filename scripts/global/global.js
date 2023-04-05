@@ -26,8 +26,8 @@ export const ENUM_ESTADO_DET = [{i: 0, n:"No procesado", c:0},
                             {i: 1, n:"Rechazado", c:4},
                             {i: 2, n:"Destrucción pendiente", c:2},
                             {i: 3, n:"Retiro pendiente", c:2},
-                            {i: 4, n:"Destruido", c:1},
-                            {i: 5, n:"En revisión", c:1},
+                            {i: 4, n:"En revisión", c:1},
+                            {i: 5, n:"Destruido", c:1},
                             {i: 6, n:"Devolucion $", c:3},
                             {i: 7, n:"Cambio", c:3},
                             {i: 8, n:"Reparación", c:1},
@@ -35,6 +35,9 @@ export const ENUM_ESTADO_DET = [{i: 0, n:"No procesado", c:0},
                             {i: 10, n:"OT abierta", c:1},
                             {i: 11, n:"OT completa", c:3},
                         ];
+export const OPCION_RETIRO = [  {i: 0, n: "Retira OCA"},
+                                {i: 1, n: "OCA Sucursal"},
+                                {i: 2, n: "En Visuar"}]
 
 export function statusColorClass(zona, estado){
     if (zona === "Cabecera")

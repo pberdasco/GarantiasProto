@@ -45,6 +45,7 @@ elemento.innerHTML = (nuevoEstado) ? Icon.VAN : Icon.TRASH;
 }
 
 export function changeCabActions(tr){
+    // TODO:antes de sacar y poner seria bueno validar si no son las misas
     const  [,filaCaso]  = tr.id.split("-");
     const newActions = document.createElement("div");
     newActions.className = "actions";
@@ -55,18 +56,12 @@ export function changeCabActions(tr){
     tdAcciones.appendChild(newActions);
 
     eventosAccionesCabecera(tr);
-
-    //Al cambiar los estados de la cabecera puede ser necesario cambiar las acciones admitidas por los detalles
-    // setAccionesDetalle(tr, filaCaso);
 }  
 
 export function setAccionesDetalle(trCabecera, filaCaso){
-    //console.log("Habra que procesar los items del caso: ");
-    gl.casos.table[filaCaso].productos.forEach((x) => console.log(x.tipo, x.producto, x.estado));
-    //console.log("que estan en las siguientes tr");
+    const caso = gl.casos.table[filaCaso]
     const detTrs = trCabecera.nextElementSibling.querySelector("tbody").querySelectorAll("tr");
-
-
+    detTrs.forEach((x) => changeDetActions(x, caso))  
 }
 
 // =================================================================================================
@@ -105,3 +100,22 @@ export function setAccionesCabecera(trDetalle, filaCaso){
     const trCabecera = document.getElementById(`rwc-${filaCaso}`);
     changeCabActions(trCabecera);
 }
+
+export function checkEstadoCabecera(trDetalle, filaCaso){
+//TODO: si todos rechazados => estado cabecera = Rechazado
+//      cuando un item queda en rechazado, sacar la posibilidad de volver a rechazar (bug)
+
+ 
+    // const caso = gl.casos.table[filaCaso];
+    // if (caso.cabecera.estado === 1){   //1= En proceso
+    //     const todosProcesados = !caso.productos.some((x) => x.estado === 0);
+    //     if (todosProcesados && caso.cabecera.retiro){
+    //         console.log("marcar cabecera como retiro solicitado")
+    //     }else{
+    //         if (todosProcesados && !caso.cabecera.retiro){
+    //             console.log("marcar cabecera como destruccion solicitado")
+    //         }
+    //     }
+    // }
+}
+

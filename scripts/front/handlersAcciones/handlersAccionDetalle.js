@@ -1,10 +1,10 @@
 import {displayMessage} from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
-import {changeDetEstado, changeDetActions, setAccionesCabecera} from "./changeValuesAndActions.js";
+import {changeDetEstado, changeDetActions, setAccionesCabecera, checkEstadoCabecera} from "./changeValuesAndActions.js";
 
 export function eventosAccionesDetalle(tr){
-    const buttons = tr.querySelectorAll('.verBtn, .rechazarBtn, .retirarBtn, .repararBtn, .dineroBtn, .nuevoBtn');
+    const buttons = tr.querySelectorAll('.verBtn, .rechazarBtn, .retirarBtn, .destruirBtn, .repararBtn, .dineroBtn, .nuevoBtn');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
             procesaAccionDetalle(button); 
@@ -20,23 +20,30 @@ function procesaAccionDetalle(button){
 
     switch (button.className){
         case "verBtn": 
-            const campos = mapTrToCampos(tr);
-            let html = `<div>Ver el caso ${filaCaso} para el producto número ${filaProducto}<br></div>` +  campos.html;
+            let html = `<div>Ver el caso ${filaCaso} para el producto número ${filaProducto}<br></div>` +  casoDisplayFormat(caso);
             displayMessage(html, `Boton ${Icon.LUPA}`);
             break;
         case "rechazarBtn":
-            const newEstado = 1;
-            changeDetEstado(tr, newEstado);
+            changeDetEstado(tr, 1);  // rechazado
             changeDetActions(tr, caso);
             setAccionesCabecera(tr, filaCaso);
 
             const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
             const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
             displayMessage(`Se rechazó el producto ${itemCaso.producto}<br>
-                            Codigo de estado modificado (${gl.ENUM_ESTADO_DET[newHistoria.valorViejo].n} => ${gl.ENUM_ESTADO_DET[newHistoria.valorNuevo].n})`, `Rechazo`);
+                            Codigo de estado modificado (${gl.ENUM_ESTADO_DET[newHistoria.valorViejo].n} => ${gl.ENUM_ESTADO_DET[newHistoria.valorNuevo].n})`, `Boton ${Icon.CRUZ}`);
             break;
         case "retirarBtn":
-            displayMessage(`Estaremos enviando a OCA para retirar el producto ${filaProducto}  del caso ${filaCaso}`, `Boton ${Icon.CAMION}`);
+            changeDetEstado(tr, 3);   // retiro pendiente
+            changeDetActions(tr, caso);
+            checkEstadoCabecera(tr, filaCaso);   //TODO: Revisar si se puede sacar porque no esta haciendo nada
+            setAccionesCabecera(tr, filaCaso);
+            break;
+        case "destruirBtn":
+            changeDetEstado(tr, 2);   // destruccion pendiente
+            changeDetActions(tr, caso);
+            checkEstadoCabecera(tr, filaCaso);    //TODO: Revisar si se puede sacar porque no esta haciendo nada
+            setAccionesCabecera(tr, filaCaso);
             break;
         case "repararBtn":
             displayMessage(`El producto ${filaProducto} del caso ${filaCaso} será reparado`, `Boton ${Icon.HERRAMIENTAS}`);
@@ -48,26 +55,20 @@ function procesaAccionDetalle(button){
             displayMessage(`Se le enviará un producto NUEVO para reemplazar el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.MAS}`);
             break;
         default:
-            displayMessage(`El valor de tipo ${tipo}no corresponde con ninguno de los esperados`);
+            displayMessage(`El valor de tipo ${button.className}no corresponde con ninguno de los esperados`);
             break;
     }
 
 }
 
-function mapTrToCampos(tr){
-    const campos = [];
-    tr.querySelectorAll("td").forEach(td => {campos.push(td.textContent)});
-    
-    return {
-        producto: campos[0],
-        color: campos[1],
-        factura: campos[2],
-        serie: campos[3],
-        estado: campos[4],
-        html: `<div>Producto ${campos[0]}</div>
-               <div>Color ${campos[1]}</div>
-               <div>N Facura ${campos[2]}</div>
-               <div>N Serie ${campos[3]}}</div>
-               <div>Estado ${campos[4]}</div>`
-    }
+function casoDisplayFormat(caso){
+    let html =   `<div><h3>Cabecera</h3><div class="messageBodyFlex">`;
+    html +=  `<div>Caso Nro: ${caso.cabecera.caso}</div> <div>Alta: ${caso.cabecera.fechaAlta}</div> <div>Inicio: ${caso.cabecera.fechaInicio}</div>`;
+    html +=  `<div>Datos: ${caso.cabecera.datos}</div> <div>Estado: ${caso.cabecera.estado}</div> <div>Cliente: ${caso.cabecera.cliente}</div>`;
+    html += `</div><h3>Productos</h3>`;
+    caso.productos.forEach((x) => html += `<div class="messageBodyFlex"><div>Producto: ${x.producto}</div> <div>Color: ${x.color}</div> <div>Factura: ${x.factura}</div> <div>Estado: ${x.estado}</div></div>`);  
+    html += `</div><h3>Historia</h3>`;
+    caso.cabecera.historia.forEach((x) => html += `<div class="messageBodyFlex"><div>Fecha: ${x.fecha}</div> <div>Campo: ${x.campo}</div> <div>Anterior: ${x.valorViejo}</div> <div>Nuevo: ${x.valorNuevo}</div></div>`);
+    html += "</div></div>"
+    return html;
 }
