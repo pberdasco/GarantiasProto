@@ -90,32 +90,36 @@ export function changeDetActions(tr, caso){
     tdAcciones.appendChild(newActions);
 
     eventosAccionesDetalle(tr, filaCaso);
-
-    //Al cambiar los estados del detalle puede ser necesario cambiar las acciones admitidas por la cabecera
-    // setAccionesCabecera(tr, filaCaso);
 }    
 
 export function setAccionesCabecera(trDetalle, filaCaso){
-    //TODO:
     const trCabecera = document.getElementById(`rwc-${filaCaso}`);
     changeCabActions(trCabecera);
 }
 
 export function checkEstadoCabecera(trDetalle, filaCaso){
-//TODO: si todos rechazados => estado cabecera = Rechazado
-//      cuando un item queda en rechazado, sacar la posibilidad de volver a rechazar (bug)
-
- 
-    // const caso = gl.casos.table[filaCaso];
-    // if (caso.cabecera.estado === 1){   //1= En proceso
-    //     const todosProcesados = !caso.productos.some((x) => x.estado === 0);
-    //     if (todosProcesados && caso.cabecera.retiro){
-    //         console.log("marcar cabecera como retiro solicitado")
-    //     }else{
-    //         if (todosProcesados && !caso.cabecera.retiro){
-    //             console.log("marcar cabecera como destruccion solicitado")
-    //         }
-    //     }
-    // }
+    const caso = gl.casos.table[filaCaso];
+    const trCabecera = document.getElementById(`rwc-${filaCaso}`);
+    // === Caso Cabecera = Recibido y no quedan productos en revisión
+    if (caso.cabecera.estado === 4){   //4= Recibido
+        const todosProcesados = !caso.productos.some((x) => x.estado === 4);  // 4=En revision  
+        if (todosProcesados){                                                 // ==> de alguna manera va a cambiar el estado de cabecera
+            const todosRevisados = caso.productos.every((x) => x.estado === 5);  //5=Revisado
+            if (todosRevisados){
+                changeCabEstado(trCabecera, 6) // => 6: Revisado
+                return true;
+            }else{    // ==> estan todos en rechazado o no recibidos 
+                changeCabEstado(trCabecera, 8) // => 6: Revisado
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
 }
 
+// TODO:  ojo!! cuando la cabecera esta en proces y se van rechazando productos hasta que estan todos rechazados => 
+//         Esta Habilitando la tecla avisar, que podria ser avisar que esta todo rechazad, pero ahora dice al Avisar que se van a enviar las cosas... 
+//         deberia al avisar en este contexto cambiar En proceso a rechazado

@@ -45,17 +45,25 @@ function procesaAccionCabecera(button){
         }
         case "startBtn":{
             estandarChange(1, tr, filaCaso);
+            const detalle = tr.nextElementSibling;  //si no esta desplegada la tabla detalle, desplegarla
+            detalle.style.display = "table-row";
             break;
         }
         case "avisoSolicDestrBtn":{
             estandarChange(3, tr, filaCaso);
             Messages.displayGeneric(`<div>Mandarle al cliente un aviso indicando que debe destruir los productos del caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.AVISO}`);
             break;
+            // TODO:  ojo!! cuando la cabecera esta en proces y se van rechazando productos hasta que estan todos rechazados => 
+            //         Esta Habilitando la tecla avisar, que podria ser avisar que esta todo rechazad, pero ahora dice al Avisar que se van a enviar las cosas... 
+            //         deberia al avisar en este contexto cambiar En proceso a rechazado
         }
         case "avisoRetiroBtn":{
             estandarChange(2, tr, filaCaso);
             Messages.displayGeneric(`<div>Generar etiqueta OCA.<br>Generar Solicitud de Retiro.<br>Mandarle al cliente un aviso indicando que estamos mandando a retirar productos del caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.AVISO}`);
             break;
+            // TODO:  ojo!! cuando la cabecera esta en proces y se van rechazando productos hasta que estan todos rechazados => 
+            //         Esta Habilitando la tecla avisar, que podria ser avisar que esta todo rechazad, pero ahora dice al Avisar que se van a enviar las cosas... 
+            //         deberia al avisar en este contexto cambiar En proceso a rechazado   //Quizas tambien podria ser otro boton de Aviso Rechazo (o el mismo boton en rojo)
         }
         case "destruidoBtn":{
             estandarChange(5, tr, filaCaso);
@@ -75,7 +83,6 @@ function procesaAccionCabecera(button){
     }
 
     function changeEstadoDetalles(estado, trCabecera, filaCaso){
-    //debugger;
         const caso = gl.casos.table[filaCaso]
         const detTrs = trCabecera.nextElementSibling.querySelector("tbody").querySelectorAll("tr");
         for (let i = 0; i < caso.productos.length; i++){

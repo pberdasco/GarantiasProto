@@ -13,3 +13,5 @@ export const VAN =           `<i class="fa-solid fa-truck-fast" title="Retirar">
 export const TRASH =         `<i class="fa-regular fa-trash-can" title="Destruir"></i>`;
 export const DATA_OK =       `<i class="fa-regular fa-thumbs-up" title="Datos OK"></i>`;
 export const DATA_FALTA =    `<i class="fa-regular fa-thumbs-down" title="Datos Faltantes"></i>`;
+export const REVISADO_OK =       `<i class="fa-regular fa-thumbs-up" title="Revisado OK"></i>`;
+export const NO_RECIBIDO =    `<i class="fa-regular fa-thumbs-down" title="Producto no recibido en el lote"></i>`;

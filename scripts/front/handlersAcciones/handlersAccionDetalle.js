@@ -5,7 +5,7 @@ import getFalla from "../modalesInput/falla.js";
 import {changeDetEstado, changeDetActions, setAccionesCabecera, checkEstadoCabecera} from "./changeValuesAndActions.js";
 
 export function eventosAccionesDetalle(tr){
-    const buttons = tr.querySelectorAll('.verBtn, .rechazarBtn, .retirarBtn, .destruirBtn, .repararBtn, .dineroBtn, .nuevoBtn');
+    const buttons = tr.querySelectorAll('.verBtn, .rechazarBtn, .retirarBtn, .destruirBtn, .revisionBtn, .revisionYRechazoBtn, .noRecibidoBtn, .repararBtn, .dineroBtn, .nuevoBtn');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
             procesaAccionDetalle(button); 
@@ -20,12 +20,10 @@ function procesaAccionDetalle(button){
     
 
     switch (button.className){
-        case "verBtn": 
-            //let html = `<div>Ver el caso ${filaCaso} para el producto número ${filaProducto}<br></div>` +  casoDisplayFormat(caso);
+        case "verBtn": {
             Messages.displayProducto(caso, filaProducto);
-            //Messages.displayGeneric(html, `Boton ${Icon.LUPA}`);
-            break;
-        case "rechazarBtn":
+            break;}
+        case "rechazarBtn": {
             changeDetEstado(tr, 1);  // rechazado
             changeDetActions(tr, caso);
             setAccionesCabecera(tr, filaCaso);
@@ -34,44 +32,52 @@ function procesaAccionDetalle(button){
             const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
             Messages.displayGeneric(`Se rechazó el producto ${itemCaso.producto}<br>
                             Codigo de estado modificado (${gl.ENUM_ESTADO_DET[newHistoria.valorViejo].n} => ${gl.ENUM_ESTADO_DET[newHistoria.valorNuevo].n})`, `Boton ${Icon.CRUZ}`);
-            break;
-        case "retirarBtn":
+            break;}
+        case "retirarBtn": {
             changeDetEstado(tr, 3);   // retiro pendiente
             changeDetActions(tr, caso);
-            checkEstadoCabecera(tr, filaCaso);   //TODO: Revisar si se puede sacar porque no esta haciendo nada
+            //checkEstadoCabecera(tr, filaCaso);   //TODO: Revisar si se puede sacar porque no esta haciendo nada
             setAccionesCabecera(tr, filaCaso);
-            getFalla(caso, filaProducto);   //TODO: En prueba, no va aca hay que estudiar cuando se pide la falla
-            break;
-        case "destruirBtn":
+            break;}
+        case "destruirBtn": {
             changeDetEstado(tr, 2);   // destruccion pendiente
             changeDetActions(tr, caso);
-            checkEstadoCabecera(tr, filaCaso);    //TODO: Revisar si se puede sacar porque no esta haciendo nada
+            //checkEstadoCabecera(tr, filaCaso);    //TODO: Revisar si se puede sacar porque no esta haciendo nada
             setAccionesCabecera(tr, filaCaso);
-            break;
-        case "repararBtn":
+            break;}
+        case "revisionBtn":{
+            getFalla(caso, filaProducto);
+            //TODO: se podria agregar un "si no salio cancelado de la carga de falla"
+            changeDetEstado(tr, 5);   // revisado
+            changeDetActions(tr, caso);
+            const changed = checkEstadoCabecera(tr, filaCaso); // si estan toddos revisados o noRecibidos => cambia el estado de la cabecera
+            if (changed) setAccionesCabecera(tr, filaCaso);
+            break;}
+        case "revisionYRechazoBtn":{
+            getFalla(caso, filaProducto);  // Aqui en falla hay que poner que no era una falla atribuible a garantia (motivo rechazo)
+            changeDetEstado(tr, 6);   // revisado
+            changeDetActions(tr, caso);
+            const changed = checkEstadoCabecera(tr, filaCaso); // si estan toddos revisados o noRecibidos => cambia el estado de la cabecera
+            if (changed) setAccionesCabecera(tr, filaCaso);
+            break;} 
+        case "noRecibidoBtn":{
+            changeDetEstado(tr, 6);   // revisado
+            changeDetActions(tr, caso);
+            const changed = checkEstadoCabecera(tr, filaCaso); // si estan toddos revisados o noRecibidos => cambia el estado de la cabecera
+            if (changed) setAccionesCabecera(tr, filaCaso);
+            break;}
+        case "repararBtn":{
             Messages.displayGeneric(`El producto ${filaProducto} del caso ${filaCaso} será reparado`, `Boton ${Icon.HERRAMIENTAS}`);
-            break;
-        case  "dineroBtn":
+            break;}
+        case  "dineroBtn":{
             Messages.displayGeneric(`Se va a solicitar la devolución del dinero por el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.DINERO}`);
-            break;
-        case "nuevoBtn":
+            break;}
+        case "nuevoBtn":{
             Messages.displayGeneric(`Se le enviará un producto NUEVO para reemplazar el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.MAS}`);
-            break;
-        default:
+            break;}
+        default:{
             Messages.displayGeneric(`El valor de tipo ${button.className}no corresponde con ninguno de los esperados`);
-            break;
+            break;}
     }
 
 }
-
-// function casoDisplayFormat(caso){
-//     let html =   `<div><h3>Cabecera</h3><div class="messageBodyFlex">`;
-//     html +=  `<div>Caso Nro: ${caso.cabecera.caso}</div> <div>Alta: ${caso.cabecera.fechaAlta}</div> <div>Inicio: ${caso.cabecera.fechaInicio}</div>`;
-//     html +=  `<div>Datos: ${caso.cabecera.datos}</div> <div>Estado: ${caso.cabecera.estado}</div> <div>Cliente: ${caso.cabecera.cliente}</div>`;
-//     html += `</div><h3>Productos</h3>`;
-//     caso.productos.forEach((x) => html += `<div class="messageBodyFlex"><div>Producto: ${x.producto}</div> <div>Color: ${x.color}</div> <div>Factura: ${x.factura}</div> <div>Estado: ${x.estado}</div></div>`);  
-//     html += `</div><h3>Historia</h3>`;
-//     caso.cabecera.historia.forEach((x) => html += `<div class="messageBodyFlex"><div>Fecha: ${x.fecha}</div> <div>Campo: ${x.campo}</div> <div>Anterior: ${x.valorViejo}</div> <div>Nuevo: ${x.valorNuevo}</div></div>`);
-//     html += "</div></div>"
-//     return html;
-// }

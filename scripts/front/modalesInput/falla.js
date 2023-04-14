@@ -15,7 +15,7 @@ export default function getFalla(caso, filaProducto){
     function closeFallaModal(){
         let fallaStd = document.getElementById("fallaStd").value;
         let aclaraFalla = document.getElementById("aclaraFalla").value;
-        caso.productos[filaProducto].codigoFallaService = gl.FALLAS.find((x) => x.descr === fallaStd).i; 
+        caso.productos[filaProducto].codigoFallaService = gl.FALLAS.find((x) => x.descr === fallaStd)?.i; 
         caso.productos[filaProducto].descripcionFallaService = aclaraFalla;
         fallaStd  = "";
         aclaraFalla = "";

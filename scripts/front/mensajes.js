@@ -49,7 +49,7 @@ function htmlCabecera(cab){
     <div class="messageBodyFlex">
         <div>Domicilio: <strong>${dir.calle} ${dir.numero} - ${gl.PROVINCIAS[dir.provincia]} (${dir.codPostal}) ${dir.localidad}</strong></div>
         <div>Retiro <strong>${(cab.retiro)?"Si":"No"}</strong></div>
-        <div>Opción Retiro/Envio: <strong>${gl.OPCION_RETIRO[cab.opcionRetiro].n}</strong></div>
+        <div>Opción Retiro/Envio: <strong>${gl.OPCION_RETIRO[cab.opcionRetiro]?.n}</strong></div>
     </div>`;
     return html;
 }

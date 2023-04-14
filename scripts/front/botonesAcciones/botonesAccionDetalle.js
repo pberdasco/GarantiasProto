@@ -36,13 +36,19 @@ export function armaAccionesDetalle(indexProducto, caso){
             return `<button type="button" class="verBtn">${Icon.LUPA}</button>
                     <button type="button" class="destruirBtn">${Icon.TRASH}</button>`;        
     }
-    if (caso.cabecera.estado === 4 && estado === 4){   //recibido y en revision
+    if (caso.cabecera.estado === 4 && estado === 4){   //cab:recibido y det:en revisión
+        return `<button type="button" class="verBtn">${Icon.LUPA}</button>
+                <button type="button" class="revisionBtn">${Icon.REVISADO_OK}</button>
+                <button type="button" class="revisionYRechazoBtn">${Icon.CRUZ}</button>
+                <button type="button" class="noRecibidoBtn">${Icon.NO_RECIBIDO}</button>`;
+    }
+    if (caso.cabecera.estado === 4 && estado === 5){   //cab:recibido y det:revisado
         return `<button type="button" class="verBtn">${Icon.LUPA}</button>
                 <button type="button" class="dineroBtn">${Icon.DINERO}</button>
                 <button type="button" class="nuevoBtn">${Icon.CAMBIO}</button>
                 <button type="button" class="repararBtn">${Icon.HERRAMIENTAS}</button>`;
     }
-    if (caso.cabecera.estado === 5){   //destruido
+    if (caso.cabecera.estado === 7){   //det: destruido
         return `<button type="button" class="verBtn">${Icon.LUPA}</button>
                 <button type="button" class="dineroBtn">${Icon.DINERO}</button>
                 <button type="button" class="nuevoBtn">${Icon.CAMBIO}</button>
