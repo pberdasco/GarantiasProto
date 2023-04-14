@@ -28,6 +28,7 @@ export default function getFalla(caso, filaProducto){
         while (options.firstChild) {
             options.removeChild(options.firstChild);
         }
+    console.log({...options});
         //selecciono las fallas standar para el tipo de producto actual y las pongo como opciones
         const fallasProducto = gl.TIPO_FALLAS.filter((x) => x.tipo === caso.productos[filaProducto].tipo)
         fallasProducto.forEach((x) => {

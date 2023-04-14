@@ -41,23 +41,30 @@ function htmlCabecera(cab){
     const cliente = gl.clientes.getClienteByCodigo(cab.cliente);
     const dir = cab.direccion;
     let html =  htmlCabeceraBase(cab);
-    html +=     `<div class="messageBodyFlex">`;
-    html +=        `<div>Cliente: <strong>${cliente.dni} - ${cliente.apellido}, ${cliente.nombre}</strong></div> <div>Empresa: <strong>${cliente.empresa  || "Particular"}</strong></div>`;
-    html +=     `</div>`;
-    html +=     `<div class="messageBodyFlex">`;
-    html +=        `<div>Domicilio: <strong>${dir.calle} ${dir.numero} - ${gl.PROVINCIAS[dir.provincia]} (${dir.codPostal}) ${dir.localidad}</strong></div>`;
-    html +=        `<div>Retiro <strong>${(cab.retiro)?"Si":"No"}</strong></div><div>Opción Retiro/Envio: <strong>${gl.OPCION_RETIRO[cab.opcionRetiro].n}</strong></div>`;
-    html +=     `</div>`;
+    html +=
+    `<div class="messageBodyFlex">
+        <div>Cliente: <strong>${cliente.dni} - ${cliente.apellido}, ${cliente.nombre}</strong></div>
+        <div>Empresa: <strong>${cliente.empresa  || "Particular"}</strong></div>
+    </div>
+    <div class="messageBodyFlex">
+        <div>Domicilio: <strong>${dir.calle} ${dir.numero} - ${gl.PROVINCIAS[dir.provincia]} (${dir.codPostal}) ${dir.localidad}</strong></div>
+        <div>Retiro <strong>${(cab.retiro)?"Si":"No"}</strong></div>
+        <div>Opción Retiro/Envio: <strong>${gl.OPCION_RETIRO[cab.opcionRetiro].n}</strong></div>
+    </div>`;
     return html;
 }
 
 function htmlCabeceraBase(cab){
     const cliente = gl.clientes.getClienteByCodigo(cab.cliente);
-    let html =  `<h3>Caso: ${cab.caso}</h3>`;
-    html +=     `<div class="messageBodyFlex">`;
-    html +=        `<div>Fecha Alta: <strong>${cab.fechaAlta}</strong></div> <div>Fecha Inicio: <strong>${cab.fechaInicio}</strong></div>`;
-    html +=        `<div>Datos: <strong>${gl.ENUM_DATOS[cab.datos].n}</strong></div> <div>Estado: <strong>${gl.ENUM_ESTADO_CAB[cab.estado].n}</strong></div> <div>Usuario: <strong>${cliente.mail}</strong></div>`;
-    html +=     `</div>`;
+    const html =
+    `<h3>Caso: ${cab.caso}</h3>
+        <div class="messageBodyFlex">   
+            <div>Fecha Alta: <strong>${cab.fechaAlta}</strong></div>
+            <div>Fecha Inicio: <strong>${cab.fechaInicio}</strong></div>
+            <div>Datos: <strong>${gl.ENUM_DATOS[cab.datos]?.n}</strong></div>
+            <div>Estado: <strong>${gl.ENUM_ESTADO_CAB[cab.estado]?.n}</strong></div>
+            <div>Usuario: <strong>${cliente.mail}</strong></div>
+        </div>`;
     return html;
 }
 
@@ -66,25 +73,33 @@ function htmlCabeceraBase(cab){
 function htmlDetalles(dets){
     let html =  `<h3>Producto</h3>`;
     dets.forEach((x) => {
-        html += `<div class="messageBodyFlex">`;
-        html +=      `<div>Producto: <strong>${TIPOS[x.tipo].nombre}-${x.producto}</strong></div> <div>Color: <strong>${x.color}</strong></div>`; 
-        html +=      `<div>Serie: <strong>${x.serie}</strong></div> <div>Estado: <strong>${gl.ENUM_ESTADO_DET[x.estado].n}</strong></div>`;
-        html +=      `<div>F.Factura: <strong>${x.fechaFactura}</strong></div><div>Falla indicada: <strong>${x.fallaCliente}</strong></div>`;
-        html += `</div>`;
+        html +=
+        `<div class="messageBodyFlex">
+            <div>Producto: <strong>${TIPOS[x.tipo].nombre}-${x.producto}</strong></div>
+            <div>Color: <strong>${x.color}</strong></div> 
+            <div>Serie: <strong>${x.serie}</strong></div>
+            <div>Estado: <strong>${gl.ENUM_ESTADO_DET[x.estado].n}</strong></div>
+            <div>F.Factura: <strong>${x.fechaFactura}</strong></div>
+            <div>Falla indicada: <strong>${x.fallaCliente}</strong></div>
+        </div>`;
     });
     return html;
 }
 
 function htmlDetalle(det){
-    let html =  `<h3>Producto: ${TIPOS[det.tipo].nombre}-${det.producto}</h3>`;
-    html +=      `<div class="messageBodyFlex">`;
-    html +=         `<div>Color: <strong>${det.color}</strong></div> <div>Serie: <strong>${det.serie}</strong></div>`; 
-    html +=         `<div>Estado: <strong>${gl.ENUM_ESTADO_DET[det.estado].n}</strong></div><div>Factura: <strong>${det.nroFactura}-${det.fechaFactura}</strong></div>`;
-    html +=     `</div>`;
-    html +=     `<div class="messageBodyFlex">`;
-    html +=         `<div>Falla indicada: <strong>${det.fallaCliente}</strong></div> <div>Falla ST: <strong>${det.codigoFallaService || "No relevada"}-${gl.getFallaDescription(det.codigoFallaService)||""}</strong></div>`;
-    html +=         `<div>Aclaracion: <strong>${det.descripcionFallaService || "No relevada"}</strong></div>`
-    html +=     `</div>`;
+    const html =
+    `<h3>Producto: ${TIPOS[det.tipo].nombre}-${det.producto}</h3>
+    <div class="messageBodyFlex">
+        <div>Color: <strong>${det.color}</strong></div>
+        <div>Serie: <strong>${det.serie}</strong></div> 
+        <div>Estado: <strong>${gl.ENUM_ESTADO_DET[det.estado].n}</strong></div>
+        <div>Factura: <strong>${det.nroFactura}-${det.fechaFactura}</strong></div>
+    </div>
+    <div class="messageBodyFlex">
+        <div>Falla indicada: <strong>${det.fallaCliente}</strong></div>
+        <div>Falla ST: <strong>${det.codigoFallaService || "No relevada"}-${gl.getFallaDescription(det.codigoFallaService)||""}</strong></div>
+        <div>Aclaracion: <strong>${det.descripcionFallaService || "No relevada"}</strong></div>
+    </div>`;
     return html;
 }
 
@@ -92,10 +107,13 @@ function htmlHistoria(origen, descripcionOrigen){
     let html =  `<h3>Historia ${descripcionOrigen}</h3>`;
     origen.historia.forEach((x) => {
         const v = getDescripcion(x, (descripcionOrigen === "Caso"));
-        html +=  `<div class="messageBodyFlex">`;
-        html +=      `<div>Fecha: <strong>${x.fecha}</strong></div> <div>Campo: <strong>${x.campo}</strong></div>`; 
-        html +=      `<div>Anterior: <strong>${v.v}</strong></div> <div>Nuevo: <strong>${v.n}</strong></div>`
-        html +=  `</div>`;
+        html +=  
+        `<div class="messageBodyFlex">
+            <div>Fecha: <strong>${x.fecha}</strong></div>
+            <div>Campo: <strong>${x.campo}</strong></div> 
+            <div>Anterior: <strong>${v.v}</strong></div>
+            <div>Nuevo: <strong>${v.n}</strong></div>
+        </div>`;
     });
     return html;
 }

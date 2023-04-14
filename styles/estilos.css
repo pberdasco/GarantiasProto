@@ -189,8 +189,8 @@ td, th {
 
 .cabecera-nuevoProducto{
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	column-gap: 50px;
+	/*justify-content: space-between;*/
 	margin-bottom: 15px;
 }
 
@@ -248,4 +248,27 @@ td, th {
 #mensajeOk{
 	margin-top: 10px;
 	align-self: center;
+}
+
+/* ============ Ingreso Fallas ============== */
+.ingresaFalla{
+	min-width: 50%;
+	
+}
+.ingresaFallaBody{
+	padding: auto;
+}
+
+.fallaBloqueCampo{
+	padding-top: 5px;
+	padding-bottom: 15px;
+}
+
+.labelIngresoFalla{
+	margin-top: 10px;
+}
+
+.ingresoButtons{
+	display: flex;
+	justify-content: flex-end;
 }
