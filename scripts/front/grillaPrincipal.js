@@ -1,3 +1,8 @@
+// TODO:  Ver AG Grid  --  Handontable  -- DataTables (JQuery)
+// https://datatables.net/examples/basic_init/multiple_tables.html
+//https://www.ag-grid.com/example/
+
+
 //import {eventosAccionesCabecera, eventosAccionesDetalle, statusColorClass} from "./estadosYeventosGrilla.js"; 
 import { armaAccionesCabecera } from "./botonesAcciones/botonesAccionCabecera.js";
 import { armaAccionesDetalle } from "./botonesAcciones/botonesAccionDetalle.js";

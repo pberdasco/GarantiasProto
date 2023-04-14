@@ -1,4 +1,4 @@
-import {displayMessage} from "../mensajes.js";
+import Messages from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
 import {changeCabEstado, changeDatos, changeRetiro, changeCabActions, setAccionesDetalle, changeDetEstado} from "./changeValuesAndActions.js";
@@ -19,7 +19,8 @@ function procesaAccionCabecera(button){
 
     switch (button.className){
         case "verCabBtn": 
-            displayMessage(`<div>Ver el caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.LUPA}`);
+            Messages.displayCaso(gl.casos.table[filaCaso]);
+            //Messages.displayGeneric(`<div>Ver el caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.LUPA}`);
             break;
         case "dtsOkBtn": {
             changeDatos(tr, 0);
@@ -27,6 +28,7 @@ function procesaAccionCabecera(button){
             setAccionesDetalle(tr, filaCaso); // si al cambiar un estado en la cabecera, tambien cambio acciones en sus detalles
             const fInicio = tr.querySelector(".c-cab-fInicio"); // muestra la fecha de inicio que es cambiada al poner estado 0
             fInicio.textContent = cabecera.fechaInicio;
+            Messages.displayGeneric(`<div>Generar Inicio Caso - ${cabecera.caso}<br><br>.Inicio Caso CF/RET segun sea el cliente</div>`, `Boton ${Icon.DATA_OK}`);
             break;
         }
         case "dtsFaltanteBtn": {
@@ -47,12 +49,12 @@ function procesaAccionCabecera(button){
         }
         case "avisoSolicDestrBtn":{
             estandarChange(3, tr, filaCaso);
-            displayMessage(`<div>Mandarle al cliente un aviso indicando que debe destruir los productos del caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.AVISO}`);
+            Messages.displayGeneric(`<div>Mandarle al cliente un aviso indicando que debe destruir los productos del caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.AVISO}`);
             break;
         }
         case "avisoRetiroBtn":{
             estandarChange(2, tr, filaCaso);
-            displayMessage(`<div>Generar etiqueta OCA.<br>Generar Solicitud de Retiro.<br>Mandarle al cliente un aviso indicando que estamos mandando a retirar productos del caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.AVISO}`);
+            Messages.displayGeneric(`<div>Generar etiqueta OCA.<br>Generar Solicitud de Retiro.<br>Mandarle al cliente un aviso indicando que estamos mandando a retirar productos del caso (${filaCaso}) - ${cabecera.caso}<br></div>`, `Boton ${Icon.AVISO}`);
             break;
         }
         case "destruidoBtn":{

@@ -1,6 +1,7 @@
-import {displayMessage} from "../mensajes.js";
+import Messages from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
+import getFalla from "../modalesInput/falla.js";
 import {changeDetEstado, changeDetActions, setAccionesCabecera, checkEstadoCabecera} from "./changeValuesAndActions.js";
 
 export function eventosAccionesDetalle(tr){
@@ -20,8 +21,9 @@ function procesaAccionDetalle(button){
 
     switch (button.className){
         case "verBtn": 
-            let html = `<div>Ver el caso ${filaCaso} para el producto número ${filaProducto}<br></div>` +  casoDisplayFormat(caso);
-            displayMessage(html, `Boton ${Icon.LUPA}`);
+            //let html = `<div>Ver el caso ${filaCaso} para el producto número ${filaProducto}<br></div>` +  casoDisplayFormat(caso);
+            Messages.displayProducto(caso, filaProducto);
+            //Messages.displayGeneric(html, `Boton ${Icon.LUPA}`);
             break;
         case "rechazarBtn":
             changeDetEstado(tr, 1);  // rechazado
@@ -30,7 +32,7 @@ function procesaAccionDetalle(button){
 
             const itemCaso = gl.casos.table[filaCaso].productos[filaProducto];
             const newHistoria = itemCaso.historia[itemCaso.historia.length - 1];
-            displayMessage(`Se rechazó el producto ${itemCaso.producto}<br>
+            Messages.displayGeneric(`Se rechazó el producto ${itemCaso.producto}<br>
                             Codigo de estado modificado (${gl.ENUM_ESTADO_DET[newHistoria.valorViejo].n} => ${gl.ENUM_ESTADO_DET[newHistoria.valorNuevo].n})`, `Boton ${Icon.CRUZ}`);
             break;
         case "retirarBtn":
@@ -38,6 +40,7 @@ function procesaAccionDetalle(button){
             changeDetActions(tr, caso);
             checkEstadoCabecera(tr, filaCaso);   //TODO: Revisar si se puede sacar porque no esta haciendo nada
             setAccionesCabecera(tr, filaCaso);
+            getFalla(caso, filaProducto);   //TODO: En prueba, no va aca hay que estudiar cuando se pide la falla
             break;
         case "destruirBtn":
             changeDetEstado(tr, 2);   // destruccion pendiente
@@ -46,29 +49,29 @@ function procesaAccionDetalle(button){
             setAccionesCabecera(tr, filaCaso);
             break;
         case "repararBtn":
-            displayMessage(`El producto ${filaProducto} del caso ${filaCaso} será reparado`, `Boton ${Icon.HERRAMIENTAS}`);
+            Messages.displayGeneric(`El producto ${filaProducto} del caso ${filaCaso} será reparado`, `Boton ${Icon.HERRAMIENTAS}`);
             break;
         case  "dineroBtn":
-            displayMessage(`Se va a solicitar la devolución del dinero por el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.DINERO}`);
+            Messages.displayGeneric(`Se va a solicitar la devolución del dinero por el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.DINERO}`);
             break;
         case "nuevoBtn":
-            displayMessage(`Se le enviará un producto NUEVO para reemplazar el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.MAS}`);
+            Messages.displayGeneric(`Se le enviará un producto NUEVO para reemplazar el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.MAS}`);
             break;
         default:
-            displayMessage(`El valor de tipo ${button.className}no corresponde con ninguno de los esperados`);
+            Messages.displayGeneric(`El valor de tipo ${button.className}no corresponde con ninguno de los esperados`);
             break;
     }
 
 }
 
-function casoDisplayFormat(caso){
-    let html =   `<div><h3>Cabecera</h3><div class="messageBodyFlex">`;
-    html +=  `<div>Caso Nro: ${caso.cabecera.caso}</div> <div>Alta: ${caso.cabecera.fechaAlta}</div> <div>Inicio: ${caso.cabecera.fechaInicio}</div>`;
-    html +=  `<div>Datos: ${caso.cabecera.datos}</div> <div>Estado: ${caso.cabecera.estado}</div> <div>Cliente: ${caso.cabecera.cliente}</div>`;
-    html += `</div><h3>Productos</h3>`;
-    caso.productos.forEach((x) => html += `<div class="messageBodyFlex"><div>Producto: ${x.producto}</div> <div>Color: ${x.color}</div> <div>Factura: ${x.factura}</div> <div>Estado: ${x.estado}</div></div>`);  
-    html += `</div><h3>Historia</h3>`;
-    caso.cabecera.historia.forEach((x) => html += `<div class="messageBodyFlex"><div>Fecha: ${x.fecha}</div> <div>Campo: ${x.campo}</div> <div>Anterior: ${x.valorViejo}</div> <div>Nuevo: ${x.valorNuevo}</div></div>`);
-    html += "</div></div>"
-    return html;
-}
+// function casoDisplayFormat(caso){
+//     let html =   `<div><h3>Cabecera</h3><div class="messageBodyFlex">`;
+//     html +=  `<div>Caso Nro: ${caso.cabecera.caso}</div> <div>Alta: ${caso.cabecera.fechaAlta}</div> <div>Inicio: ${caso.cabecera.fechaInicio}</div>`;
+//     html +=  `<div>Datos: ${caso.cabecera.datos}</div> <div>Estado: ${caso.cabecera.estado}</div> <div>Cliente: ${caso.cabecera.cliente}</div>`;
+//     html += `</div><h3>Productos</h3>`;
+//     caso.productos.forEach((x) => html += `<div class="messageBodyFlex"><div>Producto: ${x.producto}</div> <div>Color: ${x.color}</div> <div>Factura: ${x.factura}</div> <div>Estado: ${x.estado}</div></div>`);  
+//     html += `</div><h3>Historia</h3>`;
+//     caso.cabecera.historia.forEach((x) => html += `<div class="messageBodyFlex"><div>Fecha: ${x.fecha}</div> <div>Campo: ${x.campo}</div> <div>Anterior: ${x.valorViejo}</div> <div>Nuevo: ${x.valorNuevo}</div></div>`);
+//     html += "</div></div>"
+//     return html;
+// }

@@ -22,6 +22,29 @@
 				<div id="textoMensaje"></div>
 				<button type="button" id="mensajeOk"  class="btnGeneral">Ok</button>
 			</dialog>
+			<dialog class="ingresaFalla">
+				<h2>Revición del Producto</h2>
+				<div class="ingresaFallaBody">
+					<div>
+						<label for="fallasCliente" class="labelIngreso">Falla declarada:</label><br>
+						<input type="text" id="fallaCliente" class="inputIngreso" readonly>
+					</div>
+					<div>
+						<label for="fallaStd" class="labelIngreso">Falla detectada:</label><br>
+						<input list="fallasStd" id="fallaStd" class="inputIngreso">
+					</div>
+					<div>
+						<label for="aclaraFalla" class="labelIngreso">Aclaracion de la falla:</label><br>
+						<input type="text" id="aclaraFalla" class="inputIngreso">
+					</div>	
+					<datalist id="fallasStd">
+						<!-- Crear los:  <option value="Motor clavado"></option>  -->
+					</datalist>				
+				</div>
+				<div class="ingresoButtons">
+					<button type="button" id="ingresaFallaGuardar" class="btnGeneral">Guardar</button>					
+				</div>
+			</dialog>
 		</div>
 		<div class="grilla">
 			<table class="main-table">

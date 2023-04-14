@@ -3,6 +3,7 @@ import {productos, ENUM_ESTADO_DET} from "../global/global.js";
 import { todayFormated } from "../global/dateAndPadd.js";
 
 export class ProductoCaso{
+    id;
     caso;
     producto;
     tipo;
@@ -11,9 +12,13 @@ export class ProductoCaso{
     nroFactura;
     fechaFactura;
     estado;
+    fallaCliente;
+    codigoFallaService;
+    descripcionFallaService;
+    ordenTrabajoId;
     historia = [];  // {usuario: , fecha: , estadoViejo: , estadoNuevo:}
 
-    constructor(caso, producto, tipo, color, serie, nroFactura, fechaFactura, estado){
+    constructor(caso, producto, tipo, color, serie, nroFactura, fechaFactura, estado, fallaCliente){
         this.caso = caso;
         this.producto = producto;
         this.tipo = tipo;
@@ -21,7 +26,8 @@ export class ProductoCaso{
         this.serie = serie;
         this.nroFactura = nroFactura;
         this.fechaFactura = fechaFactura;
-        this.estado = estado
+        this.estado = estado;
+        this.fallaCliente = fallaCliente;
     }
 
     getJoinedData(){

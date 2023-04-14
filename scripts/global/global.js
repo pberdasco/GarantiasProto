@@ -1,4 +1,3 @@
-
 import {Productos} from "../back/producto.js";
 import {Clientes} from "../back/clientes.js";
 import {Casos}  from "../back/casos.js";
@@ -7,6 +6,19 @@ export const productos = new Productos();
 export const clientes = new Clientes();
 export const casos = new Casos();
 casos.loadCasosFake();
+
+export const TIPO_FALLAS = [{tipo: 0, falla: 0}, {tipo: 0, falla: 1}, {tipo: 0, falla: 2}, {tipo: 0, falla: 99},
+                            {tipo: 1, falla: 0}, {tipo: 1, falla: 1}, {tipo: 1, falla: 3}, {tipo: 1, falla: 99},
+                            {tipo: 2, falla: 1}, {tipo: 2, falla: 3}, {tipo: 2, falla: 99},
+                            {tipo: 3, falla: 0}, {tipo: 3, falla: 99},
+                            {tipo: 4, falla: 0}, {tipo: 4, falla: 1}, {tipo: 4, falla: 3}, {tipo: 4, falla: 4}, {tipo: 4, falla: 5}, {tipo: 4, falla: 99}]
+
+export const FALLAS = [{i: 0, descr: "Motor clavado"}, {i:1, descr: "Cable cortado"}, {i:2, descr:"Bolsa rota"},
+                       {i:3, descr:"Rotor partido"}, {i:4, descr: "Corto circuito"}, {i:5, descr: "Corto circuito"}, {i:99, descr:"Otros",tipo: 3}]
+
+export function getFallaDescription(falla){
+    return FALLAS.find((x) => x.i === falla)?.descr;
+} 
 
 export const ENUM_COLOR_CLASS = ["colorRevision", "colorEnProceso", "colorEnCliente", "colorAprobado", "colorRechazado"]; 
 export const ENUM_DATOS = [ {i: 0, n:"Ok", c:3},
@@ -49,4 +61,9 @@ export function statusColorClass(zona, estado){
     if (zona === "Detalle")
         return ENUM_COLOR_CLASS[ENUM_ESTADO_DET[estado]?.c];
 }
+
+export const PROVINCIAS = ["Ciudad Autónoma de Buenos Aires", "Buenos Aires", "Catamarca", "Chaco", "Chubut",
+                           "Córdoba", "Corrientes", "Entre Rios", "Formosa", "Jujuy", "La Pampa", "La rioja",
+                           "Mendoza", "Misiones", "Neuquen", "Rio Negro", "Salta", "San Juan", "San Luis",
+                           "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del fuego", "Tucuman"];
 
