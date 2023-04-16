@@ -1,0 +1,85 @@
+/* ======================== Ingreso Std  ============================= */
+.ingresaStdWindow-sm{
+	min-width: 50%;
+}
+.ingresaStdWindow-md{
+	min-width: 75%;
+}
+
+.ingresaStdWindowBody{
+	display: inline-block;
+	width: 100%;
+}
+
+.stdBloqueCampo{
+	margin-bottom: 10px;
+}
+
+.stdLabelIngreso{
+	display: inline-block;
+	font-weight: bold;
+	width: 95%;
+	text-align: left;
+}
+
+.stdInputIngreso{
+	display: inline-block;
+	color: var(--input-color);
+	width: 95%;
+	text-align: left;
+}
+
+.stdIngresoButtons{
+	width: 90%;
+	text-align: center;
+}
+
+
+
+/* ==================== Columnas de Ingreso Std ============= */
+
+/*  ----  Un div grillaInputStd al rededor de todos los campos de cada fila ----- */
+.grillaInputStd{
+	display: grid; 
+	grid-template-columns: repeat(6, 1fr); 
+}
+
+/* ---- En cada grupo de campo (label+input) c-n, w-n  
+        para indicar desde que columna y que ancho en columnas ---- */
+.c-1{
+	grid-column-start: 1;
+}
+.c-2{
+	grid-column-start: 2;
+}
+.c-3{
+	grid-column-start: 3;
+}
+.c-4{
+	grid-column-start: 4;
+}
+.c-5{
+	grid-column-start: 5;
+}
+.c-6{
+	grid-column-start: 6;
+}
+
+.w-1{
+	grid-column-end: span 1;
+}
+.w-2{
+	grid-column-end: span 2;
+}
+.w-3{
+	grid-column-end: span 3;
+}
+.w-4{
+	grid-column-end: span 4;
+}
+.w-5{
+	grid-column-end: span 5;
+}
+.w-6{
+	grid-column-end: span 6;
+}

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Reclamos Garantía - Visuar SA</title>
 	<link rel="stylesheet" href="./styles/estilos.css">
+	<link rel="stylesheet" href="./styles/ingreso-form.css">
 	<script src="https://kit.fontawesome.com/8c427e0695.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -20,29 +21,41 @@
 			<dialog class="mensajes">
 				<h2 id="tituloMensaje"></h2>
 				<div id="textoMensaje"></div>
-				<button type="button" id="mensajeOk"  class="btnGeneral">Ok</button>
+				<div class="grillaInputStd">
+					<div class="stdIngresoButtons c-6 w-1">
+						<button type="button" id="mensajeOk"  class="btnGeneral">Ok</button>
+					</div>
+				</div>
 			</dialog>
-			<dialog class="ingresaFalla">
+			<dialog class="ingresaStdWindow-md ingresaFalla">
 				<h2>Revisión del Producto</h2>
-				<div class="ingresaFallaBody">
-					<div class="fallaBloqueCampo">
-						<label for="fallasCliente" class="labelIngresoFalla">Falla declarada:</label><br>
-						<input type="text" id="fallaCliente" class="inputIngresoFalla" size="70" readonly>
+
+				<div class="grillaInputStd">			
+					<div class="stdBloqueCampo c-2 w-4">
+						<label for="fallasCliente" class="stdLabelIngreso">Falla declarada:</label><br>
+						<input type="text" id="fallaCliente" class="stdInputIngreso"  readonly>
 					</div>
-					<div class="fallaBloqueCampo">
-						<label for="fallaStd" class="labelIngresoFalla">Falla detectada:</label><br>
-						<input type="text" list="fallasStd" id="fallaStd" class="inputIngresoFalla" size="70">
+				</div>
+				<div class="grillaInputStd">
+					<div class="stdBloqueCampo c-2 w-4">
+						<label for="fallaStd" class="stdLabelIngreso">Falla detectada:</label><br>
+						<input type="text" list="fallasStd" id="fallaStd" class="stdInputIngreso">
 					</div>
-					<div class="fallaBloqueCampo">
-						<label for="aclaraFalla" class="labelIngresoFalla">Aclaracion de la falla:</label><br>
-						<input type="text" id="aclaraFalla" class="inputIngresoFalla" size="70">
+				</div>
+				<div class="grillaInputStd">
+					<div class="stdBloqueCampo c-1 w-6">
+						<label for="aclaraFalla" class="stdLabelIngreso">Aclaracion de la falla:</label><br>
+						<input type="text" id="aclaraFalla" class="stdInputIngreso" >
 					</div>	
 					<datalist id="fallasStd">
-						<!-- Crear los:  <option value="Motor clavado"></option>  -->
-					</datalist>				
+						 <!--Crear los:  <option value="Motor clavado"></option> --> 
+					</datalist>	
 				</div>
-				<div class="ingresoButtons">
-					<button type="button" id="ingresaFallaGuardar" class="btnGeneral">Guardar</button>					
+
+				<div class="grillaInputStd">
+					<div class="stdIngresoButtons c-6 w-1">
+						<button type="button" id="ingresaFallaGuardar" class="btnGeneral">Guardar</button>					
+					</div>
 				</div>
 			</dialog>
 		</div>

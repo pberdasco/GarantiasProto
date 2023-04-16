@@ -8,6 +8,8 @@
 	--btn-back-color: rgb(2, 2, 199);
 	--btn-front-color: white;
 	--btn-hover-color: rgb(93, 93, 245);
+	--input-color: #141d97;
+	--input-error-color: red;
 }
 /* Estilos generales */
 
@@ -250,25 +252,4 @@ td, th {
 	align-self: center;
 }
 
-/* ============ Ingreso Fallas ============== */
-.ingresaFalla{
-	min-width: 50%;
-	
-}
-.ingresaFallaBody{
-	padding: auto;
-}
 
-.fallaBloqueCampo{
-	padding-top: 5px;
-	padding-bottom: 15px;
-}
-
-.labelIngresoFalla{
-	margin-top: 10px;
-}
-
-.ingresoButtons{
-	display: flex;
-	justify-content: flex-end;
-}

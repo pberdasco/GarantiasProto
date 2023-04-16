@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reclamos Garantía - Visuar SA</title>
+	<link rel="stylesheet" href="./styles/estilos.css">
+
+<!-- Estilos particulares del input en ingreso-form.css -->
+	<link rel="stylesheet" href="./styles/ingreso-form.css">
+	<script src="https://kit.fontawesome.com/8c427e0695.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<header>
+		<div class="logo"><img src="./styles/LogoVisuar.png" alt="Visuar SA"></div>
+		<h1>Reclamos Garantía</h1>
+		<button class="btnGeneral" id="loginBtn">Login</button>
+	</header>
+	
+	<main>
+		<div>
+			<dialog class="mensajes">
+				<h2 id="tituloMensaje"></h2>
+				<div id="textoMensaje"></div>
+				<button type="button" id="mensajeOk"  class="btnGeneral">Ok</button>
+			</dialog>
+			<dialog class="ingresaStdWindow-md ingresaFalla">
+				<h2>Revisión del Producto</h2>
+
+
+				<div class="grillaInputStd">		<!-- Cada linea entre estos div-->	
+					<div class="stdBloqueCampo c-1 w-3">  <!-- cada bloque campos columna y ancho-->
+						<label for="fallasCliente" class="stdLabelIngreso">Falla declarada:</label><br>
+						<input type="text" id="fallaCliente" class="stdInputIngreso"  readonly>
+					</div>
+					<div class="stdBloqueCampo c-4 w-3">
+						<label for="fallasCliente2" class="stdLabelIngreso">Falla declarada 2:</label><br>
+						<input type="text" id="fallaCliente2" class="stdInputIngreso"  readonly>
+					</div>	
+				</div>
+
+				<div class="grillaInputStd">
+						<div class="stdBloqueCampo c-1 w-2">
+							<label for="fallaStd" class="stdLabelIngreso">Falla detectada:</label><br>
+							<input type="text" list="fallasStd" id="fallaStd" class="stdInputIngreso">
+						</div>
+						<div class="stdBloqueCampo c-3 w-3">
+							<label for="fallaStd2" class="stdLabelIngreso">Falla detectada 2:</label><br>
+							<input type="text" list="fallasStd" id="fallaStd2" class="stdInputIngreso">
+						</div>	
+				</div>
+
+				<div class="grillaInputStd">
+					<div class="stdBloqueCampo c-1 w-1">
+						<label for="fallaStd3" class="stdLabelIngreso">Falla detectada 3:</label><br>
+						<input type="text" list="fallasStd" id="fallaStd3" class="stdInputIngreso">
+					</div>
+					<div class="stdBloqueCampo c-2 w-1">
+						<label for="fallaStd5" class="stdLabelIngreso">Falla detectada 5:</label><br>
+						<input type="text" list="fallasStd" id="fallaStd5" class="stdInputIngreso">
+					</div>
+					<div class="stdBloqueCampo c-3 w-3">
+						<label for="fallaStd4" class="stdLabelIngreso">Falla detectada 4:</label><br>
+						<input type="text" list="fallasStd" id="fallaStd4" class="stdInputIngreso">
+					</div>	
+			</div>
+
+				<div class="grillaInputStd">
+						<div class="stdBloqueCampo c-2 w-5">
+							<label for="aclaraFalla" class="stdLabelIngreso">Aclaracion de la falla:</label><br>
+							<input type="text" id="aclaraFalla" class="stdInputIngreso" >
+						</div>	
+						<datalist id="fallasStd">
+							 <!--Crear los:  <option value="Motor clavado"></option> --> 
+						</datalist>				
+				</div>
+
+<!-- Fin prueba grilla -->
+
+<!--
+				<div class="columnas">
+
+					<div class="ingresaStdWindowBody">
+						<div class="stdBloqueCampo">
+							<label for="fallasCliente" class="stdLabelIngreso">Falla declarada:</label><br>
+							<input type="text" id="fallaCliente" class="stdInputIngreso"  readonly>
+						</div>
+						<div class="stdBloqueCampo">
+							<label for="fallaStd" class="stdLabelIngreso">Falla detectada:</label><br>
+							<input type="text" list="fallasStd" id="fallaStd" class="stdInputIngreso">
+						</div>
+						<div class="stdBloqueCampo">
+							<label for="aclaraFalla" class="stdLabelIngreso">Aclaracion de la falla:</label><br>
+							<input type="text" id="aclaraFalla" class="stdInputIngreso" >
+						</div>	
+						<datalist id="fallasStd">
+							 Crear los:  <option value="Motor clavado"></option>  
+						</datalist>				
+					</div>
+
+					<div class="ingresaStdWindowBody">
+						<div class="stdBloqueCampo">
+							<label for="fallasCliente2" class="stdLabelIngreso">Falla declarada:</label><br>
+							<input type="text" id="fallaCliente2" class="stdInputIngreso"  readonly>
+						</div>
+						<div class="stdBloqueCampo">
+							<label for="fallaStd2" class="stdLabelIngreso">Falla detectada:</label><br>
+							<input type="text" list="fallasStd" id="fallaStd2" class="stdInputIngreso">
+						</div>	
+					</div>
+
+				</div>
+-->
+<div class="grillaInputStd">
+	<div class="stdIngresoButtons c-5 w-1">
+		<button type="button" id="ingresaFallaCancelar" class="btnGeneral">Cancelar</button>					
+	</div>
+				<div class="stdIngresoButtons c-6 w-1">
+					<button type="button" id="ingresaFallaGuardar" class="btnGeneral">Guardar</button>					
+				</div>
+</div>
+			</dialog>
+		</div>
+		<div class="grilla">
+			<table class="main-table">
+				<thead>
+					<tr class="titulos-cabecera">
+						<th data-column="1">Detalle</th>
+						<th data-column="2">Caso</th>
+						<th data-column="3">Alta</th>
+						<th data-column="4">Items</th>
+						<th data-column="5">Datos</th>
+						<th data-column="6">Inicio</th>
+						<th data-column="7">Estado</th>
+						<th data-column="8">Ret</th>
+						<th data-column="9">Cliente</th>
+						<th data-column="10">Acciones Caso</th>
+					</tr>
+				</thead>
+				<tbody id="main-body">
+					<!-- Aqui el script carga tanto las filas de las cabeceras como los titulos y filas de los detalles -->
+				</tbody>
+			</table>
+		</div>
+		<div id="alta" class="altaOculta alta">
+			<div class="altaTitulo">
+				<h2>Detalles del caso</h2>
+			</div>
+			<div>
+
+			</div>
+		</div>
+	</main>
+
+	<script src="./scripts/front/visuar.js" type="module"></script>
+</body>
+</html>
