@@ -17,7 +17,31 @@
 	</header>
 	
 	<main>
+		<div class="grilla">
+			<table class="main-table grillasStd">
+				<thead>
+					<tr class="titulos-cabecera">
+						<th data-column="1">Det</th>
+						<th data-column="2">Caso</th>
+						<th data-column="3">Alta</th>
+						<th data-column="4">Items</th>
+						<th data-column="5">Datos</th>
+						<th data-column="6">Inicio</th>
+						<th data-column="7">Estado</th>
+						<th data-column="8">Ret</th>
+						<th data-column="9">Cliente</th>
+						<th data-column="10">Acciones Caso</th>
+					</tr>
+				</thead>
+				<tbody id="main-body">
+					<!-- Aqui el script carga tanto las filas de las cabeceras como los titulos y filas de los detalles -->
+				</tbody>
+			</table>
+		</div>
+
+		<!-- *********************************  Dialogs ******************************** -->
 		<div>
+			<!-- ------------------------------  Mensajes ------------------------------ -->
 			<dialog class="mensajes">
 				<h2 id="tituloMensaje"></h2>
 				<div id="textoMensaje"></div>
@@ -27,6 +51,8 @@
 					</div>
 				</div>
 			</dialog>
+
+			<!-- -----------------------  Ingreso datos de falla ----------------------- -->
 			<dialog class="ingresaStdWindow-md ingresaFalla">
 				<h2>Revisión del Producto</h2>
 
@@ -58,35 +84,69 @@
 					</div>
 				</div>
 			</dialog>
-		</div>
-		<div class="grilla">
-			<table class="main-table">
-				<thead>
-					<tr class="titulos-cabecera">
-						<th data-column="1">Detalle</th>
-						<th data-column="2">Caso</th>
-						<th data-column="3">Alta</th>
-						<th data-column="4">Items</th>
-						<th data-column="5">Datos</th>
-						<th data-column="6">Inicio</th>
-						<th data-column="7">Estado</th>
-						<th data-column="8">Ret</th>
-						<th data-column="9">Cliente</th>
-						<th data-column="10">Acciones Caso</th>
-					</tr>
-				</thead>
-				<tbody id="main-body">
-					<!-- Aqui el script carga tanto las filas de las cabeceras como los titulos y filas de los detalles -->
-				</tbody>
-			</table>
-		</div>
-		<div id="alta" class="altaOculta alta">
-			<div class="altaTitulo">
-				<h2>Detalles del caso</h2>
-			</div>
-			<div>
 
-			</div>
+			<!-- -----------------------  Ingreso Orden de Trabajo ----------------------- -->
+			<dialog class="ingresaStdWindow-md ingresaOT">
+				<h2>Orden de Trabajo</h2>
+				<div class="grillaInputStd">			
+					<div class="stdBloqueCampo c-1 w-1">
+						<label for="otNro" class="stdLabelIngreso">Número Orden:</label><br>
+						<input type="text" id="otNro" class="stdInputIngreso" readonly>
+					</div>
+					<div class="stdBloqueCampo c-2 w-2">
+						<label for="otTecnico" class="stdLabelIngreso">Técnico:</label><br>
+						<input type="text" id="otTecnico" class="stdInputIngreso">
+					</div>
+					<div class="stdBloqueCampo c-4 w-3">
+						<label for="otProducto" class="stdLabelIngreso">Producto:</label><br>
+						<input type="text" id="otProducto" class="stdInputIngreso"  readonly>
+					</div>
+				</div>
+				<div class="grillaInputStd">			
+					<div class="stdBloqueCampo c-1 w-3">
+						<label for="fallasClienteOT" class="stdLabelIngreso">Falla declarada:</label><br>
+						<input type="text" id="fallaClienteOT" class="stdInputIngreso"  readonly>
+					</div>
+					<div class="stdBloqueCampo c-4 w-3">
+						<label for="fallaStdOT" class="stdLabelIngreso">Falla detectada:</label><br>
+						<input type="text" list="fallasStd" id="fallaStdOT" class="stdInputIngreso" readonly>
+					</div>
+				</div>
+				<div class="grillaInputStd">
+					<div class="stdBloqueCampo c-1 w-6">
+						<label for="aclaraFallaOT" class="stdLabelIngreso">Aclaracion de la falla:</label><br>
+						<input type="text" id="aclaraFallaOT" class="stdInputIngreso" >
+					</div>	
+				</div>
+				<div class="grilla">
+					<h3>Insumos</h3>
+					<table id="grilla-otInsumos" class="gillasStd">
+						<thead>
+							<tr class="titulos-cabecera">
+								<th data-column="1">Tipo</th>
+								<th data-column="2">Codigo</th>
+								<th data-column="3">Descripción</th>
+								<th data-column="4">Observaciones</th>
+							</tr>
+						</thead>
+						<tbody id="otInsumos-body">
+
+						</tbody>
+						<!--  Aqui el script crea la primer fila en blanco cuando se presiona Agregar -->
+					</table>
+				</div>
+				<div class="grillaInputStd">
+					<div class="stdIngresoButtons c-4 w-1">
+						<button type="button" id="otAbierta" class="btnGeneral">Abierta</button>					
+					</div>
+					<div class="stdIngresoButtons c-5 w-1">
+						<button type="button" id="otCerrada" class="btnGeneral">Cerrada</button>					
+					</div>
+					<div class="stdIngresoButtons c-6 w-1">
+						<button type="button" id="otCancelar" class="btnGeneral">Cancelar</button>					
+					</div>
+				</div>
+			</dialog>
 		</div>
 	</main>
 

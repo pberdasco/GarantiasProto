@@ -2,6 +2,7 @@ import Messages from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
 import getFalla from "../modalesInput/falla.js";
+import getOT from "../modalesInput/ordenTrabajo.js";
 import {changeDetEstado, changeDetActions, setAccionesCabecera, checkEstadoCabecera} from "./changeValuesAndActions.js";
 
 export function eventosAccionesDetalle(tr){
@@ -67,7 +68,8 @@ function procesaAccionDetalle(button){
             if (changed) setAccionesCabecera(tr, filaCaso);
             break;}
         case "repararBtn":{
-            Messages.displayGeneric(`El producto ${filaProducto} del caso ${filaCaso} será reparado`, `Boton ${Icon.HERRAMIENTAS}`);
+            getOT(caso, filaProducto);
+            //Messages.displayGeneric(`El producto ${filaProducto} del caso ${filaCaso} será reparado`, `Boton ${Icon.HERRAMIENTAS}`);
             break;}
         case  "dineroBtn":{
             Messages.displayGeneric(`Se va a solicitar la devolución del dinero por el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.DINERO}`);

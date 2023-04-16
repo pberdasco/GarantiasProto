@@ -5,6 +5,12 @@ import {Casos}  from "../back/casos.js";
 export const productos = new Productos();
 export const clientes = new Clientes();
 export const casos = new Casos();
+
+export let usuario;
+export function setUsuario(u){
+    usuario = u;
+}
+
 casos.loadCasosFake();
 
 export const TIPO_FALLAS = [{tipo: 0, falla: 0}, {tipo: 0, falla: 1}, {tipo: 0, falla: 2}, {tipo: 0, falla: 99},

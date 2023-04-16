@@ -32,6 +32,11 @@ h2{
 	margin-top: 0;
 	padding: 10px 0  10px;
 }
+
+h3{
+	margin: 0;
+	padding: 5px 0 2px 0 ;
+}
 .btnGeneral {
 	background-color: var(--btn-back-color);
 	color: var(--btn-front-color);
@@ -45,6 +50,14 @@ h2{
 .btngeneral:hover {
 	background-color: var(--btn-hover-color);
 }
+
+.grillasStd {
+	border-collapse: collapse;
+	width: 100%;
+	table-layout: fixed;
+    margin: 0px;
+}
+
 
 /* Estilos del encabezado */
 
@@ -62,18 +75,13 @@ header {
 }
 
 
-/* Estilos de la tabla */
+/* Estilos de la tabla principal*/
 .grilla{
 	width: 90%;
     margin-top: 20px;
     margin-left: 5%;
 	overflow: auto;
-	max-height: 400px;
-}
-
-.main-table {
-    width: 100%;
-	border-collapse: collapse;
+	max-height: 400px ;
 }
 
 .titulos-cabecera {
@@ -81,11 +89,9 @@ header {
 	cursor: pointer;
 }
 
-
 tbody tr.detalle {
 	display: none;
 }
-
 
 td, th {
 	padding: 6px 15px;
@@ -94,24 +100,17 @@ td, th {
 }
 
 .main-table [data-column="1"]{width: 4%;}
-.main-table [data-column="2"]{width: 5%;}
+.main-table [data-column="2"]{width: 7%;}
 .main-table [data-column="3"]{width: 9%;}
 .main-table [data-column="4"]{width: 5%;}
-.main-table [data-column="5"]{width: 6%;}
+.main-table [data-column="5"]{width: 7%;}
 .main-table [data-column="6"]{width: 9%;}
 .main-table [data-column="7"]{width: 12%;}
 .main-table [data-column="8"]{width: 3%;}
-.main-table [data-column="9"]{width: 30%;}
-.main-table [data-column="10"]{width: 17%;}
+.main-table [data-column="9"]{width: 29%;}
+.main-table [data-column="10"]{width: 15%;}
 
 /* Estilos de la tabla de detalle */
-
-.detail-table {
-	width: 100%;
-	table-layout: fixed;
-    margin: 0px;
-	border-collapse: collapse;
-}
 
 .detail-table th, .detail-table td {
 	padding: 3px 3px 3px 10px;
@@ -192,7 +191,6 @@ td, th {
 .cabecera-nuevoProducto{
 	display: flex;
 	column-gap: 50px;
-	/*justify-content: space-between;*/
 	margin-bottom: 15px;
 }
 
@@ -203,11 +201,6 @@ td, th {
 
 .inputIngreso{
 	border-color: var(--tit-grilla-back-color);
-}
-
-#grilla-alta-productos {
-	border-collapse: collapse;
-	width: 100%;
 }
 
 .celda-nuevoProducto{

@@ -15,12 +15,11 @@ import * as gl from "../global/global.js";
 const INFO = `<i class="fa-solid fa-info"></i>`;
 const VAN = `<i class="fa-solid fa-truck-fast"></i>`;
 const TRASH = `<i class="fa-regular fa-trash-can"></i>`;
-let usuario;
 let usuarioInterno;
 
 export function loadTable(u){
-    usuario = u;
-    usuarioInterno = usuario.tipo === "E";
+    gl.setUsuario(u);
+    usuarioInterno = u.tipo === "E";
     for (let i = 0; i < gl.casos.table.length; i++){       
         loadLine(i);
     }
@@ -28,7 +27,7 @@ export function loadTable(u){
 
 export function loadLine(i){
     var tableBody = document.getElementById("main-body");
-    if  (gl.casos.table[i].cabecera.cliente === usuario.codigo || usuarioInterno){   
+    if  (gl.casos.table[i].cabecera.cliente === gl.usuario.codigo || usuarioInterno){   
         tableBody.appendChild(getLineaCabecera(i));
         tableBody.appendChild(getTablaDetalle(i));
     }
@@ -73,7 +72,7 @@ function getTablaDetalle(index) {
     tablaDetalle.classList.add("detalle");
   
     const table = document.createElement("table");
-    table.classList.add("detail-table");
+    table.classList.add("detail-table", "grillasStd");
   
     const thead = document.createElement("thead");
     thead.innerHTML = ` <tr>

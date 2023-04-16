@@ -75,6 +75,10 @@ function procesaAccionCabecera(button){
             estandarChange(4, tr, filaCaso);
             changeEstadoDetalles(4, tr, filaCaso);
             setAccionesDetalle(tr, filaCaso);
+            const msg = mensajeTrigger();
+        console.log(msg);
+            Messages.displayGeneric(msg, `Boton ${Icon.RECIBIDO}`);
+
             break;
         }
         
@@ -95,6 +99,40 @@ function procesaAccionCabecera(button){
         changeCabEstado(tr, estado);    
         changeCabActions(tr);
         setAccionesDetalle(tr, filaCaso);
+    }
+
+    function mensajeTrigger(){
+        
+        const result =
+        `
+        <div>
+        <div><strong> Esto Podria generase automaticamente desde un trigger en la base de softland, del estilo: </strong></div>
+        <div>..CREATE TRIGGER tr_nuevo_remito</div>
+        <div>..ON Remitos</div>
+        <div>..AFTER INSERT</div>
+        <div>..AS</div>
+        <div>..BEGIN</div>
+        <div>....DECLARE @numero int;</div>
+        <div>....DECLARE @producto varchar(50);</div>
+        <div>....DECLARE @tipo varchar(50);</div>
+        <div>....DECLARE @fecha date;</div>
+        <div>....DECLARE @url varchar(200);</div>
+        <div>....DECLARE @data varchar(max);</div>
+        <div>    
+        <div>....SELECT @numero = i.Numero,</div>
+        <div>.......@producto = i.Producto,</div>
+        <div>.......@tipo = i.Tipo,</div>
+        <div>.......@fecha = i.Fecha</div>
+        <div>....FROM inserted i;</div>
+        <div>    
+        <div>....SET @url = 'http://localhost:3000/nuevoRemito/';</div>
+        <div>....SET @data = '{"numero":"' + CAST(@numero as varchar(10)) + '","producto":"' + @producto + '","tipo":"' + @tipo + '","fecha":"' + CONVERT(varchar, @fecha, 126) + '"}';</div>
+        <div>    </div>
+        <div>....<strong>EXEC xp_cmdshell 'powershell Invoke-WebRequest -Uri "' + @url + '" -Method POST -Body ''' + @data + '''"';</strong></div>
+        <div>..END;</div>
+        </div>
+        `;
+        return result;
     }
 };
 
