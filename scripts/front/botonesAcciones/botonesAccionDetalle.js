@@ -48,6 +48,14 @@ export function armaAccionesDetalle(indexProducto, caso){
                 <button type="button" class="nuevoBtn">${Icon.CAMBIO}</button>
                 <button type="button" class="repararBtn">${Icon.HERRAMIENTAS}</button>`;
     }
+    if (caso.cabecera.estado === 6 && estado === 12){   //cab:revisado y det:ot abierta
+        return `<button type="button" class="verBtn">${Icon.LUPA}</button>
+                <button type="button" class="repararBtn">${Icon.HERRAMIENTAS}</button>`;
+    }
+    if (caso.cabecera.estado === 6 && estado === 13){   //cab:revisado y det:ot cerrada
+        return `<button type="button" class="verBtn">${Icon.LUPA}</button>
+                <button type="button" class="repararBtn">${Icon.HERRAMIENTAS}</button>`;
+    }
     if (caso.cabecera.estado === 7){   //det: destruido
         return `<button type="button" class="verBtn">${Icon.LUPA}</button>
                 <button type="button" class="dineroBtn">${Icon.DINERO}</button>

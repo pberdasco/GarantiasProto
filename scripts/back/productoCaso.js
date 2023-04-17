@@ -18,7 +18,8 @@ export class ProductoCaso{
     ordenTrabajoId;
     historia = [];  // {usuario: , fecha: , estadoViejo: , estadoNuevo:}
 
-    constructor(caso, producto, tipo, color, serie, nroFactura, fechaFactura, estado, fallaCliente){
+    constructor(id, caso, producto, tipo, color, serie, nroFactura, fechaFactura, estado, fallaCliente){
+        if(id) this.id = id;
         this.caso = caso;
         this.producto = producto;
         this.tipo = tipo;

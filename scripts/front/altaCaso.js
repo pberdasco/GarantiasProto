@@ -89,7 +89,6 @@ function agregarFila(e) {
 	campos[0].innerHTML = '<select name="categoria" class="inputGrilla"> '+listaCategorias;
     campos[1].innerHTML = '<select name="producto" class="inputGrilla">';
     campos[1].onfocus= armaOptionsProducto;
-    console.dir(campos[1]);
 	campos[2].innerHTML = '<input type="text" name="color" class="inputGrilla">';
 	campos[3].innerHTML = '<input type="text" name="falla" class="inputGrilla">';
 	campos[4].innerHTML = '<input type="text" name="serie" class="inputGrilla">';

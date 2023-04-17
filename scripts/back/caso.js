@@ -15,7 +15,9 @@ export class Caso{
     }
 
     addProduct(producto){
+        this.producto.id = this.productos.length;
         this.productos.push(producto);
+        
     }
 
 }

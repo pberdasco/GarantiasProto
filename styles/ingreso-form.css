@@ -86,13 +86,28 @@
 
 
 /* ==================== Grilla Insumos Orden de Trabajo ============= */
-#grilla-otInsumos [data-column="1"]{width: 15%;}
-#grilla-otInsumos [data-column="2"]{width: 20%;}
-#grilla-otInsumos [data-column="3"]{width: 25%;}
+#grilla-otInsumos [data-column="1"]{width: 20%;}
+#grilla-otInsumos [data-column="2"]{width: 40%;}
 #grilla-otInsumos [data-column="4"]{width: 40%;}
 #grilla-otInsumos{
-	width: 70%;
+	width: 100%;
     margin: 5px 0 20px 0;
-    
+}
 
+.btnMedio{
+	background-color: var(--btn-back-color);
+	color: var(--btn-front-color);
+	border: none;
+	margin-top: 6px;
+	padding: 3px 18px 2px;
+	border-radius: 5px;   
+    /* min-width: 120px; */
+	cursor: pointer;
+}
+
+.btnMedio:hover{
+	background-color: var(--btn-hover-color);
+}
+.btnMedio:disabled{
+	background-color: var(--btn-disabled-color);
 }

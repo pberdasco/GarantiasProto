@@ -2,7 +2,7 @@ import Messages from "../mensajes.js";
 import * as gl from "../../global/global.js";
 import * as Icon from "../../global/icons.js";
 import getFalla from "../modalesInput/falla.js";
-import getOT from "../modalesInput/ordenTrabajo.js";
+import getOTasync from "../modalesInput/ot.js";
 import {changeDetEstado, changeDetActions, setAccionesCabecera, checkEstadoCabecera} from "./changeValuesAndActions.js";
 
 export function eventosAccionesDetalle(tr){
@@ -14,7 +14,7 @@ export function eventosAccionesDetalle(tr){
     });
 }
 
-function procesaAccionDetalle(button){
+async function procesaAccionDetalle(button){
     const tr = button.closest("tr"); // desde la posicion del boton, tomo la fila que lo contiene
     const  [,filaCaso,filaProducto]  = tr.id.split("-");
     const caso = gl.casos.table[filaCaso];
@@ -68,9 +68,18 @@ function procesaAccionDetalle(button){
             if (changed) setAccionesCabecera(tr, filaCaso);
             break;}
         case "repararBtn":{
-            getOT(caso, filaProducto);
-            //Messages.displayGeneric(`El producto ${filaProducto} del caso ${filaCaso} será reparado`, `Boton ${Icon.HERRAMIENTAS}`);
-            break;}
+            const status = await getOTasync(caso, filaProducto);
+            if (status === "A"){
+                changeDetEstado(tr, 12);   // Ot Abierta
+                changeDetActions(tr, caso);
+            }
+            if (status === "C"){
+                changeDetEstado(tr, 13);   // Ot Cerrada
+                changeDetActions(tr, caso);
+                //TODO: si estan todas cerradas o con dinero devuelto, etc... cambia el estado cabecera
+            }
+            return;
+        }
         case  "dineroBtn":{
             Messages.displayGeneric(`Se va a solicitar la devolución del dinero por el producto ${filaProducto} del caso ${filaCaso}`, `Boton ${Icon.DINERO}`);
             break;}

@@ -65,13 +65,13 @@
 				<div class="grillaInputStd">
 					<div class="stdBloqueCampo c-2 w-4">
 						<label for="fallaStd" class="stdLabelIngreso">Falla detectada:</label><br>
-						<input type="text" list="fallasStd" id="fallaStd" class="stdInputIngreso">
+						<input type="text" list="fallasStd" id="fallaStd" class="stdInputIngreso" autocomplete="off">
 					</div>
 				</div>
 				<div class="grillaInputStd">
 					<div class="stdBloqueCampo c-1 w-6">
 						<label for="aclaraFalla" class="stdLabelIngreso">Aclaracion de la falla:</label><br>
-						<input type="text" id="aclaraFalla" class="stdInputIngreso" >
+						<input type="text" id="aclaraFalla" class="stdInputIngreso" autocomplete="off">
 					</div>	
 					<datalist id="fallasStd">
 						 <!--Crear los:  <option value="Motor clavado"></option> --> 
@@ -79,8 +79,11 @@
 				</div>
 
 				<div class="grillaInputStd">
-					<div class="stdIngresoButtons c-6 w-1">
+					<div class="stdIngresoButtons c-5 w-1">
 						<button type="button" id="ingresaFallaGuardar" class="btnGeneral">Guardar</button>					
+					</div>
+					<div class="stdIngresoButtons c-6 w-1">
+						<button type="button" id="ingresaFallaCancelar" class="btnGeneral">Cancelar</button>					
 					</div>
 				</div>
 			</dialog>
@@ -119,21 +122,39 @@
 					</div>	
 				</div>
 				<div class="grilla">
-					<h3>Insumos</h3>
-					<table id="grilla-otInsumos" class="gillasStd">
-						<thead>
-							<tr class="titulos-cabecera">
-								<th data-column="1">Tipo</th>
-								<th data-column="2">Codigo</th>
-								<th data-column="3">Descripción</th>
-								<th data-column="4">Observaciones</th>
-							</tr>
-						</thead>
-						<tbody id="otInsumos-body">
+					<div class="grillaInputStd">
+						<div class="c-1 w-1">
+							<h3>Insumos</h3>
+						</div>
+						<div class=" c-2 w-1">
+							<button type="button" id="otMasInsumo" class="btnMedio"><i class="fa-regular fa-square-plus" title="Agregar Insummo"></i></button>
+						</div>
+					</div>
+					<div class="grillaInputStd">
+						<div class="stdBloqueCampo c-1 w-6">
+							<table id="grilla-otInsumos" class="gillasStd">
+								<thead>
+									<tr class="titulos-cabecera">
+										<th data-column="1">Clase</th>
+										<th data-column="2">Insumo</th>
+										<th data-column="3">Observaciones</th>
+									</tr>
+								</thead>
+								<tbody id="otInsumos-body">
+									<!--  Aqui el script crea la primer fila en blanco cuando se presiona Agregar -->	
+								</tbody>	
+							</table>
+							<datalist id="claseInsumos">
+								<option value="Repuesto"></option>
+								<option value="Accesorio"></option>
+								<option value="Mano de Obra"></option>
+							</datalist>
 
-						</tbody>
-						<!--  Aqui el script crea la primer fila en blanco cuando se presiona Agregar -->
-					</table>
+							<datalist id="insumos">
+								<!--Crear los:  <option value="MO1123 - Tecnico"></option> --> 
+						   </datalist>
+						</div>
+					</div>
 				</div>
 				<div class="grillaInputStd">
 					<div class="stdIngresoButtons c-4 w-1">

@@ -95,7 +95,7 @@ export  class Casos{
     }
 
     static convertFakeToDetalle(x){
-        const detalle = new ProductoCaso(x.caso, x.producto, x.tipo, x.color, x.serie, x.factura, x.ffact, x.control, x.falla);
+        const detalle = new ProductoCaso("", x.caso, x.producto, x.tipo, x.color, x.serie, x.factura, x.ffact, x.control, x.falla);
         return detalle;
     }
 }

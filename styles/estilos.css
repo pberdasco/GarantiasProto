@@ -8,6 +8,7 @@
 	--btn-back-color: rgb(2, 2, 199);
 	--btn-front-color: white;
 	--btn-hover-color: rgb(93, 93, 245);
+	--btn-disabled-color: rgb(140, 149, 175);
 	--input-color: #141d97;
 	--input-error-color: red;
 }
@@ -47,8 +48,12 @@ h3{
 	cursor: pointer;
 }
 
-.btngeneral:hover {
+.btnGeneral:hover{
 	background-color: var(--btn-hover-color);
+}
+
+.btnGeneral:disabled {
+	background-color: var(--btn-disabled-color);
 }
 
 .grillasStd {

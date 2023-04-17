@@ -1,10 +1,12 @@
 import {Productos} from "../back/producto.js";
 import {Clientes} from "../back/clientes.js";
 import {Casos}  from "../back/casos.js";
+import { OrdenesTrabajo } from "../back/ordenesTrabajo.js";
 
 export const productos = new Productos();
 export const clientes = new Clientes();
 export const casos = new Casos();
+export const ots = new OrdenesTrabajo();
 
 export let usuario;
 export function setUsuario(u){

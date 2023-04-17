@@ -76,7 +76,6 @@ function procesaAccionCabecera(button){
             changeEstadoDetalles(4, tr, filaCaso);
             setAccionesDetalle(tr, filaCaso);
             const msg = mensajeTrigger();
-        console.log(msg);
             Messages.displayGeneric(msg, `Boton ${Icon.RECIBIDO}`);
 
             break;
