@@ -74,9 +74,8 @@ header {
 	justify-content: space-between;
 }
 
-.logo {
-	font-weight: bold;
-	font-size: 30px;
+header img {
+    height: 6vh;
 }
 
 
