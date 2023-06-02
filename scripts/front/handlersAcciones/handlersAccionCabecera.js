@@ -67,7 +67,7 @@ function procesaAccionCabecera(button){
         }
         case "destruidoBtn":{
             estandarChange(5, tr, filaCaso);
-            changeEstadoDetalles(5, tr, filaCaso);
+            changeEstadoDetalles(7, tr, filaCaso);
             setAccionesDetalle(tr, filaCaso);
             break;
         }

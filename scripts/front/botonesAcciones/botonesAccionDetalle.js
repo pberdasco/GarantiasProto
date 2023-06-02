@@ -56,7 +56,7 @@ export function armaAccionesDetalle(indexProducto, caso){
         return `<button type="button" class="verBtn">${Icon.LUPA}</button>
                 <button type="button" class="repararBtn">${Icon.HERRAMIENTAS}</button>`;
     }
-    if (caso.cabecera.estado === 7){   //det: destruido
+    if (caso.cabecera.estado === 5){   //det: destruido
         return `<button type="button" class="verBtn">${Icon.LUPA}</button>
                 <button type="button" class="dineroBtn">${Icon.DINERO}</button>
                 <button type="button" class="nuevoBtn">${Icon.CAMBIO}</button>
